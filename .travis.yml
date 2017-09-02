@@ -1,9 +1,11 @@
 # references:
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
-
-osx_image: xcode7.3
 language: objective-c
+osx_image: xcode8.3
+xcode_sdk: iphonesimulator10.0
+script:
+- set -o pipefail
 # cache: cocoapods
 # podfile: Example/Podfile
 # before_install:
