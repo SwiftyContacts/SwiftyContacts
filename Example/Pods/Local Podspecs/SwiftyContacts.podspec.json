@@ -1,0 +1,22 @@
+{
+  "name": "SwiftyContacts",
+  "version": "0.1.0",
+  "summary": "A short description of SwiftyContacts.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/satishbabariya/SwiftyContacts",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "satishbabariya": "satish.babariya@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/satishbabariya/SwiftyContacts.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SwiftyContacts/Classes/**/*"
+}
