@@ -51,6 +51,7 @@
 		737E19F3254F5929263982C29237C0BA /* CwlBadInstructionException.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A47E312B3885EF64B81BD590AD21B4 /* CwlBadInstructionException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		74698388846C95FAF6B70B76F87741D1 /* ErrorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A0E5C2D8902D8B3F11BE86DE704B8 /* ErrorUtility.swift */; };
 		74FD712F3B503891B6BD9E5CD287E481 /* AssertionDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCFAE0EFBD62266157ABDA892351069 /* AssertionDispatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		75083B0F1F6302D400B7D400 /* DuplicatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75083B0E1F6302D400B7D400 /* DuplicatesManager.swift */; };
 		75F8DC741F5B2413000A69F2 /* SwiftyContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8DC731F5B2413000A69F2 /* SwiftyContacts.swift */; };
 		75F8DC761F5B2543000A69F2 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F8DC751F5B2543000A69F2 /* Contacts.framework */; };
 		75F8DC781F5B25DC000A69F2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F8DC771F5B25DC000A69F2 /* CoreTelephony.framework */; };
@@ -202,6 +203,7 @@
 		6FD35A9862CFD4151DEB39BB1C953F27 /* Pods_SwiftyContacts_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyContacts_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71937B4B91A62971088D88CADF9D17CC /* BeAKindOf.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeAKindOf.swift; path = Sources/Nimble/Matchers/BeAKindOf.swift; sourceTree = "<group>"; };
 		72B50685A7115CB568F2F23A42E31BEA /* NMBExceptionCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBExceptionCapture.h; path = Sources/NimbleObjectiveC/NMBExceptionCapture.h; sourceTree = "<group>"; };
+		75083B0E1F6302D400B7D400 /* DuplicatesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DuplicatesManager.swift; path = SwiftyContacts/Classes/DuplicatesManager.swift; sourceTree = "<group>"; };
 		75F8DC731F5B2413000A69F2 /* SwiftyContacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyContacts.swift; path = SwiftyContacts/Classes/SwiftyContacts.swift; sourceTree = "<group>"; };
 		75F8DC751F5B2543000A69F2 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Contacts.framework; sourceTree = DEVELOPER_DIR; };
 		75F8DC771F5B25DC000A69F2 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
@@ -358,6 +360,7 @@
 		23CA2B038916B787B1C137DDDB11EEDE /* SwiftyContacts */ = {
 			isa = PBXGroup;
 			children = (
+				75083B0E1F6302D400B7D400 /* DuplicatesManager.swift */,
 				75F8DC731F5B2413000A69F2 /* SwiftyContacts.swift */,
 				70CAFCBFED318A53B3B2526811B4DE8F /* Support Files */,
 			);
@@ -753,6 +756,7 @@
 				17261E344C2027602431A636759AC7F2 /* DSL.swift in Sources */,
 				8654571F855691C23B7B8E61B2141944 /* EndWith.swift in Sources */,
 				BF3AF1D2B46E09E2B3DCC824E6C1F5AF /* Equal.swift in Sources */,
+				75083B0F1F6302D400B7D400 /* DuplicatesManager.swift in Sources */,
 				7F6750C7B1847733370B18C4CBFE32DF /* Errors.swift in Sources */,
 				CB7558CCDD935C9E82BBF454022ED1D3 /* Expectation.swift in Sources */,
 				8015239010C1D642F14C105F8FF8E035 /* Expression.swift in Sources */,

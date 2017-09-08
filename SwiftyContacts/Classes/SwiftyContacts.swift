@@ -484,6 +484,20 @@ public func findDuplicateContacts(Contacts contacts : [CNContact], completionHan
 }
 
 
+/// Returns the Merged Duplicate contacts in given contacts Duplicates array.
+/// - Parameters:
+///   - contacts: duplicate contact array
+///   - completionHandler: returns CNContact
+public func mergeDuplicateContacts(Contacts contacts : [CNContact], completionHandler : @escaping (_ result : CNMutableContact) -> ()){
+    
+    let duplicates = DuplicatesManager.init(DuplicateContactsArray: contacts)
+    completionHandler(duplicates.newContact)
+    
+    
+}
+
+
+
 // PRAGMA MARK: - CoreTelephonyCheck
 
 /// Check if iOS Device supports phone calls
