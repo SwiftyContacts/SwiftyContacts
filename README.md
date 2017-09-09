@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![License](https://img.shields.io/cocoapods/l/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![Platform](https://img.shields.io/badge/platforms-iOS%209.0+%20%7C%20macOS%2010.11+%20%7C%20watchOS%202.0+-333333.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
-[![Build Status](https://travis-ci.org/satishbabariya/SwiftyContacts.svg?branch=master)](https://travis-ci.org/satishbabariya/SwiftyContacts)
+
 
 A Swift library for Contacts framework.
 
