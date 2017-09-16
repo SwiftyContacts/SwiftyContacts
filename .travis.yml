@@ -17,3 +17,6 @@ script:
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+
+ notifications:
+    slack: satishbabariya:9DPFvV4rg7dO755LhoNsCfGV
