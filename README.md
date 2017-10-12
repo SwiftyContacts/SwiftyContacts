@@ -1,6 +1,6 @@
 # SwiftyContacts
 
-[![Language: Swift 3](https://img.shields.io/badge/language-swift3-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
+[![Language: Swift 3/Swift 4](https://img.shields.io/badge/language-swift3/swift4-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![License](https://img.shields.io/cocoapods/l/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![Platform](https://img.shields.io/badge/platforms-iOS%209.0+%20%7C%20macOS%2010.11+%20%7C%20watchOS%202.0+-333333.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
