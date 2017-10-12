@@ -20,7 +20,14 @@ SwiftyContacts is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
+
 pod 'SwiftyContacts'
+
+// Swift 4.x
+pod 'SwiftyContacts' , '~> 3.0.0'
+
+// Swift 3.x
+pod 'SwiftyContacts' , '~> 2.0.7'
 ```
 ## Get started
 
