@@ -2,8 +2,8 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 language: objective-c
-osx_image: xcode8.3
-xcode_sdk: iphonesimulator10.0
+osx_image: xcode9.0
+xcode_sdk: iphonesimulator11.0
 script:
 - set -o pipefail
 # cache: cocoapods
@@ -12,7 +12,7 @@ script:
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 script:
-- xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftyContacts.xcworkspace -scheme SwiftyContacts-Example -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO | xcpretty
+- xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftyContacts.xcworkspace -scheme SwiftyContacts-Example -sdk iphonesimulator11.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint
 
 after_success:
