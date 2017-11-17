@@ -8,6 +8,6 @@
   "script": [
     "set -o pipefail;",
     "open -a \"simulator\" --args -CurrentDeviceUDID \"$UUID\"",
-    "xcodebuild -scheme Dwifft -destination \"id=$UUID\" test | xcpretty"
+    "xcodebuild -workspace Example/SwiftyContacts.xcworkspace -scheme SwiftyContacts-Example -destination \"id=$UUID\" test | xcpretty"
   ]
 }
