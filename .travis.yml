@@ -1,7 +1,7 @@
 {
   "language": "objective-c",
   "before_install": "export UUID=$(instruments -s | ruby -e \"ARGF.each_line{ |ln| ln =~ /$NAME .* \\[(.*)\\]/; if \\$1; puts(\\$1); exit; end }\");",
-  "before_script": "carthage bootstrap --platform $PLATFORM --configuration Debug",
+  #"before_script": "carthage bootstrap --platform $PLATFORM --configuration Debug",
   "env": "PLATFORM=iOS NAME='iPhone 8'",
   "os": "osx",
   "osx_image": "xcode9",
