@@ -71,6 +71,61 @@ public func fetchContacts( completionHandler : @escaping (_ result : ContactsFet
     }
 }
 
+/// Fetching Contacts from phone with specific sort order.
+///
+/// - Parameters:
+///   - sortOrder: To return contacts in a specific sort order.
+///   - completionHandler: Result Handler
+public func fetchContacts(ContactsSortorder sortOrder:CNContactSortOrder, completionHandler : @escaping (_ result : ContactsFetchResult) -> ()){
+    
+    let contactStore : CNContactStore = CNContactStore()
+    var contacts : [CNContact] = [CNContact]()
+    let fetchRequest : CNContactFetchRequest = CNContactFetchRequest(keysToFetch:[CNContactVCardSerialization.descriptorForRequiredKeys()])
+    fetchRequest.unifyResults = true
+    fetchRequest.sortOrder = sortOrder
+    do{
+        try contactStore.enumerateContacts(with: fetchRequest, usingBlock: {
+            contact, cursor in
+            contacts.append(contact)})
+        completionHandler(ContactsFetchResult.Success(response: contacts))
+    } catch {
+        completionHandler(ContactsFetchResult.Error(error: error))
+    }
+}
+
+
+/// etching Contacts from phone with Grouped By Alphabet
+///
+/// - Parameter completionHandler: It will return Dictonary of Alphabets with Their Sorted Respective Contacts
+public func fetchContactsGroupedByAlphabets( completionHandler : @escaping (_ result : [String: [CNContact]],Error?) -> ()){
+    
+    let fetchRequest: CNContactFetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+    var orderedContacts: [String: [CNContact]] = [String: [CNContact]]()
+    CNContact.localizedString(forKey: CNLabelPhoneNumberiPhone)
+    fetchRequest.mutableObjects = false
+    fetchRequest.unifyResults = true
+    fetchRequest.sortOrder = .givenName
+    do {
+        try CNContactStore().enumerateContacts(with: fetchRequest, usingBlock: { (contact, _) -> Void in
+            // Ordering contacts based on alphabets in firstname
+            var key: String = "#"
+            // If ordering has to be happening via family name change it here.
+            if let firstLetter = contact.givenName[0..<1], firstLetter.containsAlphabets() {
+                key = firstLetter.uppercased()
+            }
+            var contacts = [CNContact]()
+            if let segregatedContact = orderedContacts[key] {
+                contacts = segregatedContact
+            }
+            contacts.append(contact)
+            orderedContacts[key] = contacts
+        })
+    } catch {
+        completionHandler(orderedContacts, error)
+    }
+    completionHandler(orderedContacts,nil)
+}
+
 /// Fetching Contacts from phone
 /// - parameter completionHandler: Returns Either [CNContact] or Error.
 public func fetchContactsOnBackgroundThread( completionHandler : @escaping (_ result : ContactsFetchResult) -> ()){
@@ -129,20 +184,18 @@ public enum ContactFetchResult {
 /// Get CNContact From Identifier
 /// - parameter identifier: A value that uniquely identifies a contact on the device.
 /// - parameter completionHandler: Returns Either CNContact or Error.
-public func getContactFromID(Identifire identifier : String , completionHandler : @escaping (_ result : ContactFetchResult) -> ()){
+public func getContactFromID(Identifires identifiers : [String] , completionHandler : @escaping (_ result : ContactsFetchResult) -> ()){
     
-    fetchContacts { (result) in
-        switch result{
-        case .Success(response: let contacts):
-            for item in contacts{
-                if item.identifier == identifier{
-                    completionHandler(ContactFetchResult.Success(response: item))
-                }
-            }
-            break
-        case .Error(error: let error):
-            completionHandler(ContactFetchResult.Error(error: error))
-        }
+    
+    let contactStore : CNContactStore = CNContactStore()
+    var contacts : [CNContact] = [CNContact]()
+    let predicate : NSPredicate = CNContact.predicateForContacts(withIdentifiers: identifiers)
+    do {
+        contacts = try contactStore.unifiedContacts(matching: predicate, keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+        completionHandler(ContactsFetchResult.Success(response: contacts))
+    }
+    catch {
+        completionHandler(ContactsFetchResult.Error(error: error))
     }
 }
 
