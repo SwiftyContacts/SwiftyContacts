@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)"
+options: "10c63b9e7cffc4f76bf69a001c400940"
+build_time: [1513077022, 879532000]
+inputs:
+  "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift": [9223372036, 854775807]

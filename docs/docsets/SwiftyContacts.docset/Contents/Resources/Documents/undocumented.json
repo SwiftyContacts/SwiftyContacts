@@ -1,0 +1,173 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 52,
+      "symbol": "ContactsFetchResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 53,
+      "symbol": "ContactsFetchResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 54,
+      "symbol": "ContactsFetchResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 179,
+      "symbol": "ContactFetchResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 180,
+      "symbol": "ContactFetchResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 181,
+      "symbol": "ContactFetchResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 203,
+      "symbol": "ContactOperationResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 204,
+      "symbol": "ContactOperationResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 205,
+      "symbol": "ContactOperationResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 213,
+      "symbol": "addContact(Contact:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 231,
+      "symbol": "addContactInContainer(Contact:Container_Identifier:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 278,
+      "symbol": "GroupsFetchResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 279,
+      "symbol": "GroupsFetchResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 280,
+      "symbol": "GroupsFetchResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 295,
+      "symbol": "GroupsOperationsResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 296,
+      "symbol": "GroupsOperationsResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 297,
+      "symbol": "GroupsOperationsResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 304,
+      "symbol": "createGroup(Group_Name:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 451,
+      "symbol": "ContactsToVCardResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 452,
+      "symbol": "ContactsToVCardResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 453,
+      "symbol": "ContactsToVCardResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 472,
+      "symbol": "VCardToContactResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 473,
+      "symbol": "VCardToContactResult.Success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/Core/SwiftyContacts.swift",
+      "line": 474,
+      "symbol": "VCardToContactResult.Error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/wmt_ios_3/Desktop/SwiftyContacts"
+}

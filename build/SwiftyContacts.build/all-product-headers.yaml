@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/wmt_ios_3/Desktop/SwiftyContacts/build/Release-iphoneos/SwiftyContacts.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "SwiftyContacts-Swift.h",
+          'external-contents': "/Users/wmt_ios_3/Desktop/SwiftyContacts/build/Release-iphoneos/SwiftyContacts.framework/Headers/SwiftyContacts-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "SwiftyContacts.h",
+          'external-contents': "/Users/wmt_ios_3/Desktop/SwiftyContacts/Sources/SwiftyContacts.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/wmt_ios_3/Desktop/SwiftyContacts/build/Release-iphoneos/SwiftyContacts.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/wmt_ios_3/Desktop/SwiftyContacts/build/SwiftyContacts.build/Release-iphoneos/SwiftyContacts-iOS.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}
