@@ -7,6 +7,7 @@
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg?style=flat-square)](https://github.com/apple/swift-package-manager)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](https://cocoapods.org/pods/SwiftyContacts)
+[![Read the Docs](https://img.shields.io/readthedocs/pip.svg?style=flat-square)](https://swiftycontacts.firebaseapp.com/)
 
 
 A Swift library for Contacts framework.
@@ -20,7 +21,6 @@ A Swift library for Contacts framework.
 
 - iOS 9.0+ / Mac OS X 10.12+ /  watchOS 3.0+
 - Xcode 9.0+
-	
 
 ## Installation
 

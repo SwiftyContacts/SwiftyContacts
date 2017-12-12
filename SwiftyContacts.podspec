@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
  s.source = { :git => 'https://github.com/satishbabariya/SwiftyContacts.git', :tag => s.version.to_s }
  s.platforms = { :ios => "9.0", :osx => "10.12", :watchos => "3.0" }
  s.requires_arc = true
-
  s.default_subspec = "Core"
  s.subspec "Core" do |ss|
      ss.source_files  = "Sources/**/*.swift"
