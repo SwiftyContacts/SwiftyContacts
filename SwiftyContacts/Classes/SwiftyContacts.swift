@@ -56,6 +56,7 @@ public enum ContactsFetchResult {
 
 /// Fetching Contacts from phone
 /// - parameter completionHandler: Returns Either [CNContact] or Error.
+
 public func fetchContacts( completionHandler : @escaping (_ result : ContactsFetchResult) -> ()){
     
     let contactStore : CNContactStore = CNContactStore()
@@ -76,6 +77,7 @@ public func fetchContacts( completionHandler : @escaping (_ result : ContactsFet
 /// - Parameters:
 ///   - sortOrder: To return contacts in a specific sort order.
 ///   - completionHandler: Result Handler
+@available(iOS 10.0, *)
 public func fetchContacts(ContactsSortorder sortOrder:CNContactSortOrder, completionHandler : @escaping (_ result : ContactsFetchResult) -> ()){
     
     let contactStore : CNContactStore = CNContactStore()
@@ -96,35 +98,36 @@ public func fetchContacts(ContactsSortorder sortOrder:CNContactSortOrder, comple
 
 /// etching Contacts from phone with Grouped By Alphabet
 ///
-/// - Parameter completionHandler: It will return Dictonary of Alphabets with Their Sorted Respective Contacts
-public func fetchContactsGroupedByAlphabets( completionHandler : @escaping (_ result : [String: [CNContact]],Error?) -> ()){
-    
-    let fetchRequest: CNContactFetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
-    var orderedContacts: [String: [CNContact]] = [String: [CNContact]]()
-    CNContact.localizedString(forKey: CNLabelPhoneNumberiPhone)
-    fetchRequest.mutableObjects = false
-    fetchRequest.unifyResults = true
-    fetchRequest.sortOrder = .givenName
-    do {
-        try CNContactStore().enumerateContacts(with: fetchRequest, usingBlock: { (contact, _) -> Void in
-            // Ordering contacts based on alphabets in firstname
-            var key: String = "#"
-            // If ordering has to be happening via family name change it here.
-            if let firstLetter = contact.givenName[0..<1], firstLetter.containsAlphabets() {
-                key = firstLetter.uppercased()
-            }
-            var contacts = [CNContact]()
-            if let segregatedContact = orderedContacts[key] {
-                contacts = segregatedContact
-            }
-            contacts.append(contact)
-            orderedContacts[key] = contacts
-        })
-    } catch {
-        completionHandler(orderedContacts, error)
-    }
-    completionHandler(orderedContacts,nil)
-}
+/// - Parameter completionHandler: It will return Dictonary of Alphabets with Their Sorted Respective Contacts.
+//@available(iOS 10.0, *)
+//public func fetchContactsGroupedByAlphabets( completionHandler : @escaping (_ result : [String: [CNContact]],Error?) -> ()){
+//    
+//    let fetchRequest: CNContactFetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+//    var orderedContacts: [String: [CNContact]] = [String: [CNContact]]()
+//    CNContact.localizedString(forKey: CNLabelPhoneNumberiPhone)
+//    fetchRequest.mutableObjects = false
+//    fetchRequest.unifyResults = true
+//    fetchRequest.sortOrder = .givenName
+//    do {
+//        try CNContactStore().enumerateContacts(with: fetchRequest, usingBlock: { (contact, _) -> Void in
+//            // Ordering contacts based on alphabets in firstname
+//            var key: String = "#"
+//            // If ordering has to be happening via family name change it here.
+//            if let firstLetter = contact.givenName[0..<1], firstLetter.containsAlphabets() {
+//                key = firstLetter.uppercased()
+//            }
+//            var contacts = [CNContact]()
+//            if let segregatedContact = orderedContacts[key] {
+//                contacts = segregatedContact
+//            }
+//            contacts.append(contact)
+//            orderedContacts[key] = contacts
+//        })
+//    } catch {
+//        completionHandler(orderedContacts, error)
+//    }
+//    completionHandler(orderedContacts,nil)
+//}
 
 /// Fetching Contacts from phone
 /// - parameter completionHandler: Returns Either [CNContact] or Error.
