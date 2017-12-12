@@ -95,10 +95,10 @@ To use SwiftyContacts as a [Swift Package Manager](https://swift.org/package-man
 import PackageDescription
 
 let package = Package(
-name: "HelloSwiftyContacts",
-dependencies: [
-.Package(url: "https://github.com/satishbabariya/SwiftyContacts", "3.0.8")
-]
+    name: "HelloSwiftyContacts",
+    dependencies: [
+        .Package(url: "https://github.com/satishbabariya/SwiftyContacts", "3.0.8")
+    ]
 )
 ```
 
@@ -169,6 +169,23 @@ Fetch Contacts
             case .Error(error: let error):
                 print(error)
             break
+        }
+    })
+```
+
+Fetch Contacts by Order
+-- Sorted by CNContactSortOrder
+-- Result will be Array of CNContacts
+
+```swift
+    fetchContacts(ContactsSortorder: .givenName) { (result) in
+        switch result{
+            case .Success(response: let contacts):
+                // Do your thing here with [CNContacts] array
+                break
+            case .Error(error: let error):
+                print(error)
+                break
         }
     })
 ```

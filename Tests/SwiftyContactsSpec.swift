@@ -19,7 +19,6 @@ class SwiftyContactsSpec: QuickSpec {
                 expect(SwiftyContacts.name) == "SwiftyContacts"
             }
         }
-
     }
 
 }
