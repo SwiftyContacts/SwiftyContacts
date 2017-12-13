@@ -7,6 +7,7 @@
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg?style=flat-square)](https://github.com/apple/swift-package-manager)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](https://cocoapods.org/pods/SwiftyContacts)
+[![RxSwift: Supported](https://img.shields.io/badge/RxSwift-Supported-f48041.svg?style=flat-square)](https://github.com/ReactiveX/RxSwift)
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg?style=flat-square)](https://swiftycontacts.firebaseapp.com/)
 
 
@@ -15,6 +16,7 @@ A Swift library for Contacts framework.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Get started](#get-started)
+- [RxSwift](#rxswift)
 - [License](#license)
 
 ## Requirements
@@ -31,10 +33,12 @@ it, simply add the following line to your Podfile:
 
 pod 'SwiftyContacts'
 
-// Swift 4.x
-pod 'SwiftyContacts' , '~> 3.0.0'
+#or
 
-// Swift 3.x
+pod 'SwiftyContacts/RxSwift'
+
+
+# Swift 3.x
 pod 'SwiftyContacts' , '~> 2.0.7'
 ```
 
@@ -503,6 +507,381 @@ Find Duplicates Contacts
     }
 
 
+```
+
+## RxSwift
+
+#Contacts Authorization
+
+```swift
+
+        rx_requestAccess().subscribe { (event) in
+            switch event{
+            case .next(let element):
+                print(element)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+#Fetch Contacts
+
+```swift
+
+        rx_fetchContacts().subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+Fetch Contacts By CNContactSortOrder
+
+```swift
+
+        rx_fetchContacts(ContactsSortorder: .givenName).subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+#Search Contacts
+
+```swift
+
+        rx_searchContact(SearchString: "Satish").subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+Search Contacts with Array of Identifiers
+
+```swift
+
+        rx_ContactsFromIDs(SIdentifires: array).subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+
+
+#Contact Operations
+
+Add new Contact.
+```swift
+        rx_addContact(Contact: mutableContact).subscribe { (event) in
+            switch event{
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed,.next:
+                //Do your thing
+                break
+            }
+        }
+```
+
+Adds the specified contact to the contact store.
+```swift
+        rx_addContactInContainer(Contact: mutableContact, Container_Identifier: idString).subscribe { (event) in
+            switch event{
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed,.next:
+                //Do your thing
+                break
+            }
+        }
+```
+
+Updates an existing contact in the contact store.
+```swift
+        rx_updateContact(Contact: mutableContact).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Deletes a contact from the contact store.
+```swift
+        rx_deleteContact(Contact: mutableContact).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+#Groups Methods
+
+fetch list of Groups from the contact store.
+```swift
+        rx_fetchGroups().subscribe { (event) in
+            switch event{
+            case .next(let groups):
+                //Array of groups
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                break
+            }
+        }
+```
+
+Adds a group to the contact store.
+```swift
+        rx_createGroup(Group_Name: "Work").subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Adds a group to the contact store.
+```swift
+        rx_createGroupInContainer(Group_Name: "Work", ContainerIdentifire: containerID).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Remove an existing group in the contact store.
+```swift
+        rx_removeGroup(Group: group).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Update an existing group in the contact store.
+```swift
+        rx_updateGroup(Group: group).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Adds a contact as a member of a group.
+```swift
+        rx_addContactToGroup(Group: group, Contact: contact).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Remove a contact as a member of a group.
+```swift
+        rx_removeContactFromGroup(Group: group, Contact: contact).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+
+Fetch all contacts in a group.
+```swift
+
+        rx_fetchContactsInGorup(Group: group).subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+#Converter Methods
+
+Convert [CNContacts] TO CSV
+```swift
+        rx_contactsToVCardConverter(contacts: arrContacts).subscribe { (event) in
+            switch event{
+            case .next(let data):
+                //Do anything.
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                break
+            }
+        }
+```
+
+Convert CSV TO [CNContact]
+```swift
+
+        x_VCardToContactConverter(data: data).subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+Convert Array of CNContacts to Data using NSKeyedArchiver
+```swift
+        rx_archiveContacts(contacts: arrContacts).subscribe { (event) in
+            switch event{
+            case .next(let data):
+                //Do anything.
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                break
+            }
+        }
+```
+
+Convert Data to Array of CNContacts using NSKeyedArchiver
+```swift
+
+        rx_unarchiveConverter(data: data).subscribe { (event) in
+            switch event{
+            case .next(let contacts):
+                print(contacts.count)
+                break
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed:
+                print("completed")
+                break
+            }
+        }
+
+```
+
+#CoreTelephonyCheck
+
+Convert CNPhoneNumber To digits
+```swift
+        rx_CNPhoneNumberToString(CNPhoneNumber: contact).subscribe { event in
+            switch event {
+            case .error(let error):
+                print(error.localizedDescription)
+                break
+            case .completed, .next:
+                // Do your thing
+                break
+            }
+        }
+```
+Making a call.
+```swift
+    makeCall(CNPhoneNumber: number)
 ```
 
 ## Author
