@@ -640,7 +640,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -660,7 +660,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SKIP_INSTALL = YES;
 			};
@@ -679,7 +679,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -702,7 +702,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -725,7 +725,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -747,7 +747,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContacts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
 				PRODUCT_NAME = SwiftyContacts;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -765,7 +765,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContactsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContactsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -782,7 +782,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContactsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContactsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -800,7 +800,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContactsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContactsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -820,7 +820,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rahulkatariya.SwiftyContactsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContactsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
