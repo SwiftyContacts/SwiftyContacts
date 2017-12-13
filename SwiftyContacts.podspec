@@ -10,8 +10,13 @@ Pod::Spec.new do |s|
  s.requires_arc = true
  s.default_subspec = "Core"
  s.subspec "Core" do |ss|
-     ss.source_files  = "Sources/**/*.swift"
+     ss.source_files  = "Sources/Core/*.swift"
      ss.framework  = "Foundation" ,"Contacts"
+ end
+ s.subspec "RxSwift" do |ss|
+    ss.source_files = "Sources/RxSwift/*.swift"
+    ss.framework  = "Foundation" ,"Contacts"
+    ss.dependency "RxSwift", "~> 4.0"
  end
 
 end

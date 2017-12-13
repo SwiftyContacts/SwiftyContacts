@@ -24,11 +24,12 @@ class SwiftyContactsSpec: QuickSpec {
 
     override func spec() {
 
-//        describe("SwiftyContactsSpec") {
-//            it("works") {
-//                expect(SwiftyContacts.name) == "SwiftyContacts"
-//            }
-//        }
+        describe("SwiftyContactsSpec") {
+            it("works") {
+                expect(1 + 1).to(equal(2))
+                //expect(SwiftyContacts.name) == "SwiftyContacts"
+            }
+        }
     }
 
 }

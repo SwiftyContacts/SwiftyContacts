@@ -29,6 +29,19 @@
 		A9C166F21FDFC92500A79796 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F11FDFC92500A79796 /* Cocoa.framework */; };
 		A9C166F41FDFD5EE00A79796 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F31FDFD5EE00A79796 /* CoreTelephony.framework */; };
 		A9C166F61FDFD5F500A79796 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F51FDFD5F500A79796 /* CoreTelephony.framework */; };
+		A9CEFDE01FE0F19400C47C2F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F51FDFD5F500A79796 /* CoreTelephony.framework */; };
+		A9CEFDE11FE0F19400C47C2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166EF1FDFC91B00A79796 /* UIKit.framework */; };
+		A9CEFDE31FE0F19400C47C2F /* SwiftyContacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* SwiftyContacts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9CEFDEE1FE0F20500C47C2F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F31FDFD5EE00A79796 /* CoreTelephony.framework */; };
+		A9CEFDEF1FE0F20500C47C2F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C166F11FDFC92500A79796 /* Cocoa.framework */; };
+		A9CEFDF11FE0F20500C47C2F /* SwiftyContacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* SwiftyContacts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9CEFDFD1FE0F20700C47C2F /* SwiftyContacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* SwiftyContacts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9CEFE071FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CEFE051FE0F2A600C47C2F /* RxSwiftyContacts.swift */; };
+		A9CEFE081FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CEFE051FE0F2A600C47C2F /* RxSwiftyContacts.swift */; };
+		A9CEFE091FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CEFE051FE0F2A600C47C2F /* RxSwiftyContacts.swift */; };
+		A9CEFE0B1FE0F41100C47C2F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CEFE0A1FE0F41100C47C2F /* RxSwift.framework */; };
+		A9CEFE0D1FE0F42300C47C2F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CEFE0C1FE0F42300C47C2F /* RxSwift.framework */; };
+		A9CEFE0F1FE0F43300C47C2F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CEFE0E1FE0F43200C47C2F /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +111,13 @@
 		A9C166F11FDFC92500A79796 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A9C166F31FDFD5EE00A79796 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		A9C166F51FDFD5F500A79796 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		A9CEFDE81FE0F19400C47C2F /* SwiftyContacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyContacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9CEFDF61FE0F20500C47C2F /* SwiftyContacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyContacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9CEFE021FE0F20700C47C2F /* SwiftyContacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyContacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9CEFE051FE0F2A600C47C2F /* RxSwiftyContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftyContacts.swift; sourceTree = "<group>"; };
+		A9CEFE0A1FE0F41100C47C2F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		A9CEFE0C1FE0F42300C47C2F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		A9CEFE0E1FE0F43200C47C2F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +166,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A9CEFDDF1FE0F19400C47C2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFDE01FE0F19400C47C2F /* CoreTelephony.framework in Frameworks */,
+				A9CEFDE11FE0F19400C47C2F /* UIKit.framework in Frameworks */,
+				A9CEFE0B1FE0F41100C47C2F /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDED1FE0F20500C47C2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFDEE1FE0F20500C47C2F /* CoreTelephony.framework in Frameworks */,
+				A9CEFDEF1FE0F20500C47C2F /* Cocoa.framework in Frameworks */,
+				A9CEFE0D1FE0F42300C47C2F /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDFB1FE0F20700C47C2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFE0F1FE0F43300C47C2F /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -167,6 +215,9 @@
 				3549BB3B1DA389E800C63030 /* SwiftyContacts.framework */,
 				3549BB611DA38ADB00C63030 /* SwiftyContactsTests-iOS.xctest */,
 				3549BB7F1DA38B0000C63030 /* SwiftyContactsTests-macOS.xctest */,
+				A9CEFDE81FE0F19400C47C2F /* SwiftyContacts.framework */,
+				A9CEFDF61FE0F20500C47C2F /* SwiftyContacts.framework */,
+				A9CEFE021FE0F20700C47C2F /* SwiftyContacts.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -174,6 +225,7 @@
 		3549BB161DA3890B00C63030 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A9CEFE041FE0F28E00C47C2F /* RxSwift */,
 				359649011FB18CBF00FC7ADC /* Core */,
 				3549BB541DA38A4000C63030 /* Supporting Files */,
 			);
@@ -211,6 +263,9 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A9CEFE0A1FE0F41100C47C2F /* RxSwift.framework */,
+				A9CEFE0C1FE0F42300C47C2F /* RxSwift.framework */,
+				A9CEFE0E1FE0F43200C47C2F /* RxSwift.framework */,
 				A9C166F31FDFD5EE00A79796 /* CoreTelephony.framework */,
 				A9C166F51FDFD5F500A79796 /* CoreTelephony.framework */,
 				A9C166F11FDFC92500A79796 /* Cocoa.framework */,
@@ -231,6 +286,14 @@
 				359649021FB18CBF00FC7ADC /* SwiftyContacts.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		A9CEFE041FE0F28E00C47C2F /* RxSwift */ = {
+			isa = PBXGroup;
+			children = (
+				A9CEFE051FE0F2A600C47C2F /* RxSwiftyContacts.swift */,
+			);
+			path = RxSwift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +320,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				3549BB531DA38A2200C63030 /* SwiftyContacts.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDE21FE0F19400C47C2F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFDE31FE0F19400C47C2F /* SwiftyContacts.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDF01FE0F20500C47C2F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFDF11FE0F20500C47C2F /* SwiftyContacts.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDFC1FE0F20700C47C2F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFDFD1FE0F20700C47C2F /* SwiftyContacts.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +442,60 @@
 			productReference = 3549BB7F1DA38B0000C63030 /* SwiftyContactsTests-macOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A9CEFDDC1FE0F19400C47C2F /* RxSwiftyContacts-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9CEFDE51FE0F19400C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-iOS" */;
+			buildPhases = (
+				A9CEFDDD1FE0F19400C47C2F /* Sources */,
+				A9CEFDDF1FE0F19400C47C2F /* Frameworks */,
+				A9CEFDE21FE0F19400C47C2F /* Headers */,
+				A9CEFDE41FE0F19400C47C2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxSwiftyContacts-iOS";
+			productName = "SwiftyContacts-iOS";
+			productReference = A9CEFDE81FE0F19400C47C2F /* SwiftyContacts.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A9CEFDEA1FE0F20500C47C2F /* RxSwiftyContacts-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9CEFDF31FE0F20500C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-macOS" */;
+			buildPhases = (
+				A9CEFDEB1FE0F20500C47C2F /* Sources */,
+				A9CEFDED1FE0F20500C47C2F /* Frameworks */,
+				A9CEFDF01FE0F20500C47C2F /* Headers */,
+				A9CEFDF21FE0F20500C47C2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxSwiftyContacts-macOS";
+			productName = "SwiftyContacts-macOS";
+			productReference = A9CEFDF61FE0F20500C47C2F /* SwiftyContacts.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A9CEFDF81FE0F20700C47C2F /* RxSwiftyContacts-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9CEFDFF1FE0F20700C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-watchOS" */;
+			buildPhases = (
+				A9CEFDF91FE0F20700C47C2F /* Sources */,
+				A9CEFDFB1FE0F20700C47C2F /* Frameworks */,
+				A9CEFDFC1FE0F20700C47C2F /* Headers */,
+				A9CEFDFE1FE0F20700C47C2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxSwiftyContacts-watchOS";
+			productName = "SwiftyContacts-watchOS";
+			productReference = A9CEFE021FE0F20700C47C2F /* SwiftyContacts.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -409,6 +550,9 @@
 				3549BB3A1DA389E800C63030 /* SwiftyContacts-macOS */,
 				3549BB7E1DA38B0000C63030 /* SwiftyContactsTests-macOS */,
 				3549BB2D1DA389DB00C63030 /* SwiftyContacts-watchOS */,
+				A9CEFDDC1FE0F19400C47C2F /* RxSwiftyContacts-iOS */,
+				A9CEFDEA1FE0F20500C47C2F /* RxSwiftyContacts-macOS */,
+				A9CEFDF81FE0F20700C47C2F /* RxSwiftyContacts-watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -443,6 +587,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3549BB7D1DA38B0000C63030 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDE41FE0F19400C47C2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDF21FE0F20500C47C2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDFE1FE0F20700C47C2F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -489,6 +654,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				3549BB8C1DA38C0A00C63030 /* SwiftyContactsSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDDD1FE0F19400C47C2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFE071FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDEB1FE0F20500C47C2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFE081FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9CEFDF91FE0F20700C47C2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9CEFE091FE0F2AE00C47C2F /* RxSwiftyContacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,6 +1015,155 @@
 			};
 			name = Release;
 		};
+		A9CEFDE61FE0F19400C47C2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A9CEFDE71FE0F19400C47C2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A9CEFDF41FE0F20500C47C2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A9CEFDF51FE0F20500C47C2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A9CEFE001FE0F20700C47C2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		A9CEFE011FE0F20700C47C2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftyContacts;
+				PRODUCT_NAME = SwiftyContacts;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -879,6 +1217,33 @@
 			buildConfigurations = (
 				3549BB881DA38B0000C63030 /* Debug */,
 				3549BB891DA38B0000C63030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9CEFDE51FE0F19400C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9CEFDE61FE0F19400C47C2F /* Debug */,
+				A9CEFDE71FE0F19400C47C2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9CEFDF31FE0F20500C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9CEFDF41FE0F20500C47C2F /* Debug */,
+				A9CEFDF51FE0F20500C47C2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9CEFDFF1FE0F20700C47C2F /* Build configuration list for PBXNativeTarget "RxSwiftyContacts-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9CEFE001FE0F20700C47C2F /* Debug */,
+				A9CEFE011FE0F20700C47C2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

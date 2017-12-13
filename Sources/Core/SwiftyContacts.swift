@@ -33,8 +33,10 @@ import CoreTelephony
 #endif
 
 // PRAGMA MARK: - Contacts Authorization -
+
 /// Requests access to the user's contacts
-/// - parameter requestGranted: Set granted to true if the user allows access.
+///
+/// - Parameter requestGranted: Result as Bool
 public func requestAccess(_ requestGranted: @escaping (Bool) -> ()) {
     CNContactStore().requestAccess(for: .contacts) { grandted, _ in
         requestGranted(grandted)
@@ -42,21 +44,26 @@ public func requestAccess(_ requestGranted: @escaping (Bool) -> ()) {
 }
 
 /// Returns the current authorization status to access the contact data.
-/// - parameter requestStatus: The authorization the user has given the application to access an entity type.
+///
+/// - Parameter requestStatus: Result as CNAuthorizationStatus
 public func authorizationStatus(_ requestStatus: @escaping (CNAuthorizationStatus) -> ()) {
     requestStatus(CNContactStore.authorizationStatus(for: .contacts))
 }
 
 // PRAGMA MARK: - Fetch Contacts -
 
+/// Result Enum
+///
+/// - Success: Returns Array of Contacts
+/// - Error: Returns error
 public enum ContactsFetchResult {
     case Success(response: [CNContact])
     case Error(error: Error)
 }
 
 /// Fetching Contacts from phone
-/// - parameter completionHandler: Returns Either [CNContact] or Error.
-
+///
+/// - Parameter completionHandler: Returns Either [CNContact] or Error.
 public func fetchContacts(completionHandler: @escaping (_ result: ContactsFetchResult) -> ()) {
 
     let contactStore: CNContactStore = CNContactStore()
@@ -200,6 +207,10 @@ public func getContactFromID(Identifires identifiers: [String], completionHandle
 
 // PRAGMA MARK: - Contact Operations
 
+/// Result enum
+///
+/// - Success: Returns Bool
+/// - Error: Returns error
 public enum ContactOperationResult {
     case Success(response: Bool)
     case Error(error: Error)
@@ -208,7 +219,7 @@ public enum ContactOperationResult {
 // Add Contact
 /// Add new Contact.
 /// - parameter mutContact: A mutable value object for the contact properties, such as the first name and the phone number of a contact.
-/// - parameter completionHandler: Returns Either CNContact or Error.
+/// - parameter completionHandler: Returns Either Bool or Error.
 #if os(iOS) || os(OSX)
 public func addContact(Contact mutContact: CNMutableContact, completionHandler: @escaping (_ result: ContactOperationResult) -> ()) {
     let store: CNContactStore = CNContactStore()
@@ -226,7 +237,7 @@ public func addContact(Contact mutContact: CNMutableContact, completionHandler: 
 /// Adds the specified contact to the contact store.
 /// - parameter mutContact: A mutable value object for the contact properties, such as the first name and the phone number of a contact.
 /// - parameter identifier: The unique identifier for a contacts container on the device.
-/// - parameter completionHandler: Returns Either CNContact or Error.
+/// - parameter completionHandler: Returns Either Bool or Error.
 #if os(iOS) || os(OSX)
 public func addContactInContainer(Contact mutContact: CNMutableContact, Container_Identifier identifier: String, completionHandler: @escaping (_ result: ContactOperationResult) -> ()) {
     let store: CNContactStore = CNContactStore()
@@ -275,6 +286,10 @@ public func deleteContact(Contact mutContact: CNMutableContact, completionHandle
 
 // PRAGMA MARK: - Groups Methods -
 
+/// Result enum
+///
+/// - Success: Returns Array of CNGroup
+/// - Error: Returns error
 public enum GroupsFetchResult {
     case Success(response: [CNGroup])
     case Error(error: Error)
@@ -292,6 +307,10 @@ public func fetchGroups(completionHandler: @escaping (_ result: GroupsFetchResul
     }
 }
 
+/// Result enum
+///
+/// - Success: Returns Bool
+/// - Error: Returns error
 public enum GroupsOperationsResult {
     case Success(response: Bool)
     case Error(error: Error)
@@ -448,6 +467,10 @@ public func fetchContactsInGorup2(Group group: CNGroup, completionHandler: @esca
 
 // CSV Converter
 
+/// Result enum
+///
+/// - Success: Returns Data object
+/// - Error: Returns error
 public enum ContactsToVCardResult {
     case Success(response: Data)
     case Error(error: Error)
@@ -469,6 +492,10 @@ public func contactsToVCardConverter(contacts: [CNContact], completionHandler: @
 
 }
 
+/// Result enum
+///
+/// - Success: Returns Array of CNContact
+/// - Error: Returns error
 public enum VCardToContactResult {
     case Success(response: [CNContact])
     case Error(error: Error)

@@ -11,14 +11,14 @@
   "tvOS" : [
     {
       "name" : "Quick",
-      "hash" : "7be618bf001856d6491bd255ebc2b6ebf0485ed19c5ac7fbc2e06c6a13450f2d"
+      "hash" : "f867ff9a5eed830ddb300b20029b6c37703b7b9e48f2393eb998f035a3cc54e8"
     }
   ],
   "commitish" : "v1.2.0",
   "iOS" : [
     {
       "name" : "Quick",
-      "hash" : "e44c6d5137517c2cb1fdb3723bf9cfc7c99d2b57722845cddc6cedb2b02244e3"
+      "hash" : "abc8a1b06f423a8388f156736e8a2df786249f0a15e0228a574015e4e019bcff"
     }
   ]
 }
