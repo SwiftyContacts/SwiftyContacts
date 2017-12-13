@@ -26,22 +26,6 @@ A Swift library for Contacts framework.
 
 ## Installation
 
-SwiftyContacts is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-
-pod 'SwiftyContacts'
-
-#or
-
-pod 'SwiftyContacts/RxSwift'
-
-
-# Swift 3.x
-pod 'SwiftyContacts' , '~> 2.0.7'
-```
-
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
@@ -58,6 +42,10 @@ platform :ios, '8.0'
 use_frameworks!
 
 pod 'SwiftyContacts'
+
+#or
+
+pod 'SwiftyContacts/RxSwift'
 
 ```
 
@@ -511,7 +499,8 @@ Find Duplicates Contacts
 
 ## RxSwift
 
-#Contacts Authorization
+Contacts Authorization
+---
 
 ```swift
 
@@ -531,7 +520,8 @@ Find Duplicates Contacts
 
 ```
 
-#Fetch Contacts
+Fetch Contacts
+---
 
 ```swift
 
@@ -571,7 +561,8 @@ Fetch Contacts By CNContactSortOrder
 
 ```
 
-#Search Contacts
+Search Contacts
+---
 
 ```swift
 
@@ -613,7 +604,8 @@ Search Contacts with Array of Identifiers
 
 
 
-#Contact Operations
+Contact Operations
+---
 
 Add new Contact.
 ```swift
@@ -671,7 +663,8 @@ Deletes a contact from the contact store.
         }
 ```
 
-#Groups Methods
+Groups Methods
+---
 
 fetch list of Groups from the contact store.
 ```swift
@@ -792,7 +785,8 @@ Fetch all contacts in a group.
 
 ```
 
-#Converter Methods
+Converter Methods
+---
 
 Convert [CNContacts] TO CSV
 ```swift
@@ -864,7 +858,8 @@ Convert Data to Array of CNContacts using NSKeyedArchiver
 
 ```
 
-#CoreTelephonyCheck
+CoreTelephonyCheck
+---
 
 Convert CNPhoneNumber To digits
 ```swift
