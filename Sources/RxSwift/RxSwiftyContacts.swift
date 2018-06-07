@@ -41,7 +41,7 @@ public var rx_authorizationStatus: Observable<CNAuthorizationStatus> {
     return Observable.create({ (observer) -> Disposable in
         observer.onNext(CNContactStore.authorizationStatus(for: .contacts))
         observer.onCompleted()
-        return NopDisposable.instance
+        return Disposables.create()
     })
 }
 
@@ -58,7 +58,7 @@ public func rx_requestAccess() -> Observable<Bool> {
                 observer.onCompleted()
             }
         })
-        return NopDisposable.instance
+        return Disposables.create()
     })
 }
 
@@ -84,7 +84,7 @@ public func rx_fetchContacts() -> Observable<[CNContact]> {
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -114,7 +114,7 @@ public func rx_fetchContacts(ContactsSortorder sortOrder: CNContactSortOrder) ->
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -138,7 +138,7 @@ public func rx_searchContact(SearchString string: String) -> Observable<[CNConta
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -160,7 +160,7 @@ public func rx_ContactsFromIDs(SIdentifires identifiers: [String]) -> Observable
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -184,7 +184,7 @@ public func rx_ContactsFromIDs(SIdentifires identifiers: [String]) -> Observable
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -205,7 +205,7 @@ public func rx_ContactsFromIDs(SIdentifires identifiers: [String]) -> Observable
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -224,7 +224,7 @@ public func rx_ContactsFromIDs(SIdentifires identifiers: [String]) -> Observable
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -243,7 +243,7 @@ public func rx_ContactsFromIDs(SIdentifires identifiers: [String]) -> Observable
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -264,7 +264,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 }
 
@@ -287,7 +287,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -310,7 +310,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -331,7 +331,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -355,7 +355,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -376,7 +376,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -397,7 +397,7 @@ public func rx_fetchGroups() -> Observable<[CNGroup]> {
             } catch {
                 observer.onError(error)
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -421,7 +421,7 @@ public func rx_fetchContactsInGorup(Group group: CNGroup) -> Observable<[CNConta
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -442,7 +442,7 @@ public func rx_contactsToVCardConverter(contacts: [CNContact]) -> Observable<Dat
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -461,7 +461,7 @@ public func rx_VCardToContactConverter(data: Data) -> Observable<[CNContact]> {
         } catch {
             observer.onError(error)
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -474,7 +474,7 @@ public func rx_archiveContacts(contacts: [CNContact]) -> Observable<Data> {
     return Observable.create({ (observer) -> Disposable in
         observer.onNext(NSKeyedArchiver.archivedData(withRootObject: contacts))
         observer.onCompleted()
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -490,7 +490,7 @@ public func rx_unarchiveConverter(data: Data) -> Observable<[CNContact]> {
             observer.onNext(contacts)
             observer.onCompleted()
         }
-        return NopDisposable.instance
+        return Disposables.create()
     })
 
 }
@@ -509,7 +509,7 @@ public func rx_unarchiveConverter(data: Data) -> Observable<[CNContact]> {
                 observer.onNext(result)
                 observer.onCompleted()
             }
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -537,7 +537,7 @@ public func rx_unarchiveConverter(data: Data) -> Observable<[CNContact]> {
         return Observable.create({ (observer) -> Disposable in
             observer.onNext(UIApplication.shared.canOpenURL(NSURL(string: "tel://")! as URL) ? (CTTelephonyNetworkInfo().subscriberCellularProvider?.mobileNetworkCode != nil ? true : false) : false)
             observer.onCompleted()
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
@@ -546,7 +546,7 @@ public func rx_unarchiveConverter(data: Data) -> Observable<[CNContact]> {
         return Observable.create({ (observer) -> Disposable in
             observer.onNext(UIApplication.shared.canOpenURL(NSURL(string: "sms:")! as URL))
             observer.onCompleted()
-            return NopDisposable.instance
+            return Disposables.create()
         })
     }
 
