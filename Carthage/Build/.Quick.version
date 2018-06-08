@@ -2,7 +2,7 @@
   "Mac" : [
     {
       "name" : "Quick",
-      "hash" : "452164fa4a886e8848484f97d8c1426767c1a2f292491cd5281efb6de6070241"
+      "hash" : "e92a690070cacd8cba6f3f9412ad4737676d2ee615c8ff35259ce2e34eeba614"
     }
   ],
   "watchOS" : [
@@ -11,14 +11,14 @@
   "tvOS" : [
     {
       "name" : "Quick",
-      "hash" : "f867ff9a5eed830ddb300b20029b6c37703b7b9e48f2393eb998f035a3cc54e8"
+      "hash" : "872ccce14602d4068bb1cbcd4ad9dab529db34d3f67a662e6693b5b8a0b6010e"
     }
   ],
   "commitish" : "v1.2.0",
   "iOS" : [
     {
       "name" : "Quick",
-      "hash" : "abc8a1b06f423a8388f156736e8a2df786249f0a15e0228a574015e4e019bcff"
+      "hash" : "84335701f55470fe14a29cec05d1f3950103a12727efa9fa75275b63122afd40"
     }
   ]
 }

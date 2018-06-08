@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/Nimble-Swift.h</key>
 		<data>
-		jeKzgjXncd/4+qtGrKKvCkWRwMo=
+		ey47lvR1xFo/RnoZF0LmuYMLkus=
 		</data>
 		<key>Headers/Nimble.h</key>
 		<data>
@@ -30,15 +30,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		2EJ5JHt6TSESzLF8f2pSS5llXVE=
+		3ZB0GWP6oO6P5KuphoTM+Z2qG4Q=
 		</data>
 		<key>Modules/Nimble.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		Pc1jQ/5FPxMhfN6WlVnVLPdcj1M=
+		F5dDMVCh+J7u1rKMBEJzsev5afA=
 		</data>
 		<key>Modules/Nimble.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		3JQCB8+qOM5lGyG2YYZTuaOC63g=
+		nJm6kRTsO1qm537PwISTMsJfiCM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -95,11 +95,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jeKzgjXncd/4+qtGrKKvCkWRwMo=
+			ey47lvR1xFo/RnoZF0LmuYMLkus=
 			</data>
 			<key>hash2</key>
 			<data>
-			S2fZbgPoDAtc7hqYA928H/SNGHL7w9iQw8qXRto1CSc=
+			sypzpBB26EUf1WgP8uIf0VJvma0J0xUi6MAUO4ToJQ0=
 			</data>
 		</dict>
 		<key>Headers/Nimble.h</key>
@@ -117,22 +117,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Pc1jQ/5FPxMhfN6WlVnVLPdcj1M=
+			F5dDMVCh+J7u1rKMBEJzsev5afA=
 			</data>
 			<key>hash2</key>
 			<data>
-			JBBG2sVmlskwWMClWniLXa40ZGzclHaDONL1IXWBtU0=
+			eF1b/q6PVtDLopBBAjaSIumJq2VP8LIp/j19RGWZP60=
 			</data>
 		</dict>
 		<key>Modules/Nimble.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3JQCB8+qOM5lGyG2YYZTuaOC63g=
+			nJm6kRTsO1qm537PwISTMsJfiCM=
 			</data>
 			<key>hash2</key>
 			<data>
-			xhXWXyUnWZVxp2LE9hyan2Y7emuR52/3BboMuptdMvQ=
+			2IGE8tv+dpfyHIIA9XHs131hPF+j5UNe7x568cR1+H4=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

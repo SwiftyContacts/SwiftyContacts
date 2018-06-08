@@ -25,7 +25,6 @@
 import Contacts
 import Foundation
 import RxSwift
-import RxCocoa
 
 #if os(OSX)
     import Cocoa
@@ -731,12 +730,12 @@ extension Reactive where Base: CNContactStore {
     
     #endif
     
-    /// Posted notifications when changes occur in another CNContactStore.
-    ///
-    /// - Returns: Notification Object
-    public func didChange() -> Observable<Notification> {
-        return NotificationCenter.default.rx.notification(NSNotification.Name.CNContactStoreDidChange)
-    }
+//    /// Posted notifications when changes occur in another CNContactStore.
+//    ///
+//    /// - Returns: Notification Object
+//    public func didChange() -> Observable<Notification> {
+//        return NotificationCenter.default.rx.notification(NSNotification.Name.CNContactStoreDidChange)
+//    }
     
 }
 
