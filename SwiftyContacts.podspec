@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
  s.name = 'SwiftyContacts'
- s.version = '3.0.11'
+ s.version = '3.0.12'
  s.license = { :type => "MIT", :file => "LICENSE" }
  s.summary = 'A Swift library for Contacts framework.'
  s.homepage = 'https://github.com/satishbabariya/SwiftyContacts'
