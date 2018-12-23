@@ -77,7 +77,7 @@ $ brew install carthage
 To integrate SwiftyContacts into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "SwiftyContacts/SwiftyContacts" ~> 3.0.8
+github "satishbabariya/SwiftyContacts" ~> 3.0.8
 ```
 ### Swift Package Manager
 
