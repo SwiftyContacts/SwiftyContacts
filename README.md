@@ -11,6 +11,9 @@
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg?style=flat-square)](https://swiftycontacts.firebaseapp.com/)
 
 
+This document is deprecated new document is on the way
+
+
 A Swift library for Contacts framework.
 
 - [Requirements](#requirements)
