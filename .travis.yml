@@ -1,0 +1,27 @@
+os: osx
+osx_image: xcode10.2
+language: swift
+
+branches:
+  only:
+    - master
+    - /^\d+\.\d+\.\d+$/
+
+stages:
+  - name: test
+  - name: deploy
+    if: branch =~ ^\d+\.\d+\.\d+$
+jobs:
+  include:
+    - name: 'test'
+      stage: test
+      script:
+        swift test
+
+    - name: '`pod trunk push`'
+      stage: deploy
+      install: gem install cocoapods
+      before_script: 
+        sed -i '' "s/s.version = '0.0.1'/s.version = '$TRAVIS_TAG'/g" SwiftyContacts.podspec
+      script:
+        pod trunk push --allow-warnings
