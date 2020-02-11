@@ -18,10 +18,10 @@ jobs:
       script:
         swift test
 
-    - name: '`pod trunk push`'
-      stage: deploy
-      install: gem install cocoapods
-      before_script: 
-        sed -i '' "s/s.version = '0.0.1'/s.version = '$TRAVIS_TAG'/g" SwiftyContacts.podspec
-      script:
-        pod trunk push --allow-warnings
+    # - name: '`pod trunk push`'
+    #   stage: deploy
+    #   install: gem install cocoapods
+    #   before_script: 
+    #     sed -i '' "s/s.version = '0.0.1'/s.version = '$TRAVIS_TAG'/g" SwiftyContacts.podspec
+    #   script:
+    #     pod trunk push --allow-warnings
