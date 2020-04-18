@@ -459,6 +459,13 @@ public func isCapableToCall(completionHandler: @escaping (_ result: Bool) -> ())
     if UIApplication.shared.canOpenURL(NSURL(string: "tel://")! as URL) {
         // Check if iOS Device supports phone calls
         // User will get an alert error when they will try to make a phone call in airplane mode
+        
+        #if targetEnvironment(macCatalyst)
+
+            completionHandler(false)
+        #else 
+        
+        
         if let mnc: String = CTTelephonyNetworkInfo().subscriberCellularProvider?.mobileNetworkCode, !mnc.isEmpty {
             // iOS Device is capable for making calls
             completionHandler(true)
@@ -466,6 +473,8 @@ public func isCapableToCall(completionHandler: @escaping (_ result: Bool) -> ())
             // Device cannot place a call at this time. SIM might be removed
             completionHandler(false)
         }
+        
+        #endif
     } else {
         // iOS Device is not capable for making calls
         completionHandler(false)
