@@ -126,7 +126,7 @@ The user will only be prompted the first time access is requested.
 
 ```swift
     requestAccess { (responce) in
-        if responce{
+        if responce {
             print("Contacts Acess Granted")
         } else {
             print("Contacts Acess Denied")
@@ -156,16 +156,15 @@ Fetch Contacts
  -- Result will be Array of CNContacts
 
 ```swift
-    fetchContacts(completionHandler: { (result) in
-        switch result{
-            case .Success(response: let contacts):
-                // Do your thing here with [CNContacts] array	 
+    fetchContacts { (result) in
+        switch result {
+            case .success(let contacts):
+                // Do your thing here with [CNContacts] array
                 break
-            case .Error(error: let error):
-                print(error)
-            break
+            case .failure(let error):
+                break
         }
-    })
+    }
 ```
 
 Fetch Contacts by Order
@@ -175,10 +174,10 @@ Fetch Contacts by Order
 ```swift
     fetchContacts(ContactsSortorder: .givenName) { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Do your thing here with [CNContacts] array
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -190,10 +189,10 @@ Fetch Contacts on Background Thread
 ```swift
     fetchContactsOnBackgroundThread(completionHandler: { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Do your thing here with [CNContacts] array	 
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -206,10 +205,10 @@ Search Contact
 
     searchContact(SearchString: "john") { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Contacts Array includes Search Result Contacts
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -223,10 +222,10 @@ Get CNContact From Identifire
 
     getContactFromID(Identifire: "XXXXXXXXX", completionHandler: { (result) in  
         switch result{
-            case .Success(response: let contact):
+            case .success(let contact):
                 // CNContact
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -244,12 +243,12 @@ Add Contact
 
     addContact(Contact: contact) { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Contact Sucessfully Added")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -273,12 +272,12 @@ Update Contact
 
     updateContact(Contact: contact) { (result) in
         switch result{
-        case .Success(response: let bool):
+        case .success(let bool):
             if bool{
                 print("Contact Sucessfully Updated")
             }
             break
-        case .Error(error: let error):
+        case .failure(let error):
             print(error.localizedDescription)
             break
         }
@@ -292,12 +291,12 @@ Delete Contact
     // Use contact.mutableCopy() To convert CNContact to CNMutableContact
     deleteContact(Contact: contact) { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Contact Sucessfully Deleted")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -309,10 +308,10 @@ Fetch List Of Groups
 ```swift
     fetchGroups { (result) in
         switch result{
-            case .Success(response: let groups):
+            case .success(let groups):
                 // List Of Groups in groups array
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
             break
         }
@@ -324,12 +323,12 @@ Create Group
 ```swift
     createGroup(Group_Name: "Satish") { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Group Sucessfully Created")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -341,12 +340,12 @@ Create Group in Container
 ```swift
     createGroup(Group_Name: "Satish" , ContainerIdentifire: "ID") { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Group Sucessfully Created")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -358,12 +357,12 @@ Update Group
 ```swift
     updateGroup(Group: group, New_Group_Name: "New Name") { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(response: let bool):
                 if bool{
                     print("Group Sucessfully Updated")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -376,12 +375,12 @@ Remove Group
 ```swift
     removeGroup(Group: group) { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(response: let bool):
                 if bool{
                     print("Group Sucessfully Removed")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -395,10 +394,10 @@ Fetch Contacts In Group
 
     fetchContactsInGorup(Group: group) { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Do your thing here with [CNContacts] array	 
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -408,10 +407,10 @@ Fetch Contacts In Group
 
     fetchContactsInGorup2(Group: group) { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Do your thing here with [CNContacts] array	 
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error)
                 break
         }
@@ -424,12 +423,12 @@ Add Contact To Group
 ```swift
     addContactToGroup(Group: group, Contact: contact) { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Contact Sucessfully Added To Group")         
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -441,12 +440,12 @@ Remove Contact From Group
 ```swift
     removeContactFromGroup(Group: group, Contact: contact) { (result) in
         switch result{
-            case .Success(response: let bool):
+            case .success(let bool):
                 if bool{
                     print("Contact Sucessfully Added To Group")
                 }
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
@@ -459,10 +458,10 @@ Convert [CNContacts] TO CSV
 
     contactsToVCardConverter(contacts: ContactsArray) { (result) in
         switch result {
-            case .Success(response: data):
+            case .success(let data):
                 // Use file extension will be .vcf
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
 
@@ -477,10 +476,10 @@ Convert CSV TO [CNContact]
 
     VCardToContactConverter(data: data) { (result) in
         switch result{
-            case .Success(response: let contacts):
+            case .success(let contacts):
                 // Use Contacts array as you like   
                 break
-            case .Error(error: let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 break
         }
