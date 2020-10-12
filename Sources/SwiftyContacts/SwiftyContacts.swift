@@ -1,4 +1,24 @@
-import Contacts
+//    Copyright (c) 2019 Satish Babariya <satish.babariya@gmail.com>
+//
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the "Software"), to deal
+//    in the Software without restriction, including without limitation the rights
+//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//    copies of the Software, and to permit persons to whom the Software is
+//    furnished to do so, subject to the following conditions:
+//
+//    The above copyright notice and this permission notice shall be included in
+//    all copies or substantial portions of the Software.
+//
+//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//    THE SOFTWARE.
+
+@_exported import Contacts
 import Foundation
 
 #if os(OSX)
@@ -32,10 +52,10 @@ public func authorizationStatus(_ requestStatus: @escaping (CNAuthorizationStatu
 /// Fetching Contacts from phone
 ///
 /// - Parameter completionHandler: Returns Either [CNContact] or Error.
-public func fetchContacts(completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     let contactStore = CNContactStore()
     var contacts = [CNContact]()
-    let fetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+    let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
     do {
         try contactStore.enumerateContacts(with: fetchRequest, usingBlock: {
             contact, _ in
@@ -53,12 +73,12 @@ public func fetchContacts(completionHandler: @escaping (_ result: Result<[CNCont
 ///   - sortOrder: To return contacts in a specific sort order.
 ///   - completionHandler: Result Handler
 @available(iOS 10.0, *)
-public func fetchContacts(ContactsSortorder sortOrder: CNContactSortOrder, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     let contactStore = CNContactStore()
     var contacts = [CNContact]()
-    let fetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+    let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
     fetchRequest.unifyResults = true
-    fetchRequest.sortOrder = sortOrder
+    fetchRequest.sortOrder = order
     do {
         try contactStore.enumerateContacts(with: fetchRequest, usingBlock: {
             contact, _ in
@@ -72,9 +92,9 @@ public func fetchContacts(ContactsSortorder sortOrder: CNContactSortOrder, compl
 
 /// Fetching Contacts from phone
 /// - parameter completionHandler: Returns Either [CNContact] or Error.
-public func fetchContactsOnBackgroundThread(completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContactsOnBackgroundThread(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-        let fetchRequest = CNContactFetchRequest(keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
         var contacts = [CNContact]()
         CNContact.localizedString(forKey: CNLabelPhoneNumberiPhone)
         if #available(iOS 10.0, *) {
