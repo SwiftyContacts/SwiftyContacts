@@ -20,7 +20,7 @@ final class SwiftyContactsTests: XCTestCase {
     func testFetchContacts() {
         let e = expectation(description: "fetchContacts")
 
-        fetchContacts { result in
+        fetchContacts(keysToFetch: [CNContactGivenNameKey, CNContactFamilyNameKey] as [CNKeyDescriptor]) { result in
             switch result {
             case let .success(contacts):
                 XCTAssertEqual(contacts.count >= 0, true)

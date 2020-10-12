@@ -18,8 +18,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
 
-
-import Contacts
+@_exported import Contacts
 import Foundation
 
 #if os(OSX)
@@ -53,7 +52,7 @@ public func authorizationStatus(_ requestStatus: @escaping (CNAuthorizationStatu
 /// Fetching Contacts from phone
 ///
 /// - Parameter completionHandler: Returns Either [CNContact] or Error.
-public func fetchContacts(keysToFetch : [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     let contactStore = CNContactStore()
     var contacts = [CNContact]()
     let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
@@ -74,7 +73,7 @@ public func fetchContacts(keysToFetch : [CNKeyDescriptor] = [CNContactVCardSeria
 ///   - sortOrder: To return contacts in a specific sort order.
 ///   - completionHandler: Result Handler
 @available(iOS 10.0, *)
-public func fetchContacts(keysToFetch : [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder,completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     let contactStore = CNContactStore()
     var contacts = [CNContact]()
     let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
@@ -93,7 +92,7 @@ public func fetchContacts(keysToFetch : [CNKeyDescriptor] = [CNContactVCardSeria
 
 /// Fetching Contacts from phone
 /// - parameter completionHandler: Returns Either [CNContact] or Error.
-public func fetchContactsOnBackgroundThread(keysToFetch : [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+public func fetchContactsOnBackgroundThread(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
     DispatchQueue.global(qos: .userInitiated).async { () -> Void in
         let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
         var contacts = [CNContact]()
