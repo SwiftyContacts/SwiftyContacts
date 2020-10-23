@@ -233,6 +233,23 @@ Get CNContact From Identifire
 
 ```
 
+Get CNContact From Phone number as a String
+
+```swift
+
+    getContactFromPhone(phoneNumber: "XXXXXXXXX", completionHandler: { (result) in  
+        switch result{
+            case .success(let contact):
+                // CNContact
+                break
+            case .failure(let error):
+                print(error)
+                break
+        }
+    })
+
+```
+
 Add Contact
 
 ```swift
