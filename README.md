@@ -127,9 +127,9 @@ The user will only be prompted the first time access is requested.
 ```swift
     requestAccess { (responce) in
         if responce {
-            print("Contacts Acess Granted")
+            print("Contacts Access Granted")
         } else {
-            print("Contacts Acess Denied")
+            print("Contacts Access Denied")
         }
     }
 ```
@@ -245,7 +245,7 @@ Add Contact
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Contact Sucessfully Added")
+                    print("Contact Successfully Added")
                 }
                 break
             case .failure(let error):
@@ -274,7 +274,7 @@ Update Contact
         switch result{
         case .success(let bool):
             if bool{
-                print("Contact Sucessfully Updated")
+                print("Contact Successfully Updated")
             }
             break
         case .failure(let error):
@@ -293,7 +293,7 @@ Delete Contact
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Contact Sucessfully Deleted")
+                    print("Contact Successfully Deleted")
                 }
                 break
             case .failure(let error):
@@ -325,7 +325,7 @@ Create Group
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Group Sucessfully Created")
+                    print("Group Successfully Created")
                 }
                 break
             case .failure(let error):
@@ -342,7 +342,7 @@ Create Group in Container
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Group Sucessfully Created")
+                    print("Group Successfully Created")
                 }
                 break
             case .failure(let error):
@@ -359,7 +359,7 @@ Update Group
         switch result{
             case .success(response: let bool):
                 if bool{
-                    print("Group Sucessfully Updated")
+                    print("Group Successfully Updated")
                 }
                 break
             case .failure(let error):
@@ -377,7 +377,7 @@ Remove Group
         switch result{
             case .success(response: let bool):
                 if bool{
-                    print("Group Sucessfully Removed")
+                    print("Group Successfully Removed")
                 }
                 break
             case .failure(let error):
@@ -425,7 +425,7 @@ Add Contact To Group
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Contact Sucessfully Added To Group")         
+                    print("Contact Successfully Added To Group")         
                 }
                 break
             case .failure(let error):
@@ -442,7 +442,7 @@ Remove Contact From Group
         switch result{
             case .success(let bool):
                 if bool{
-                    print("Contact Sucessfully Added To Group")
+                    print("Contact Successfully Added To Group")
                 }
                 break
             case .failure(let error):
