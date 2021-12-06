@@ -150,6 +150,29 @@ public func getContactFromID(Identifires identifiers: [String], completionHandle
     }
 }
 
+// Get CNContact From Phone number As a String
+/// Get CNContact From Phone number As a String
+/// - parameter identifier: A value that matches with phone number of a contact.
+/// - parameter completionHandler: Returns Either CNContact or Error.
+
+
+public func getContactFromPhone(Identifires phoneNumber: CNPhoneNumber, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> ()) {
+    
+    let contactStore: CNContactStore = CNContactStore()
+    var contacts: [CNContact] = [CNContact]()
+    if #available(iOS 11.0, *) {
+        let predicate: NSPredicate = CNContact.predicateForContacts(matching: CNPhoneNumber(stringValue: phoneNumber))
+        do {
+            contacts = try contactStore.unifiedContacts(matching: predicate, keysToFetch: [CNContactVCardSerialization.descriptorForRequiredKeys()])
+            completionHandler(.success(contacts))
+        } catch {
+            completionHandler(.failure(error))
+        }
+
+    }
+}
+
+
 // PRAGMA MARK: - Contact Operations
 
 // Add Contact
