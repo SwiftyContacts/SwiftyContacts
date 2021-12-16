@@ -156,7 +156,7 @@ public func getContactFromID(Identifires identifiers: [String], completionHandle
 /// - parameter completionHandler: Returns Either CNContact or Error.
 
 
-public func getContactFromPhone(Identifires phoneNumber: CNPhoneNumber, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> ()) {
+public func getContactFromPhone(Identifires phoneNumber: String, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> ()) {
     
     let contactStore: CNContactStore = CNContactStore()
     var contacts: [CNContact] = [CNContact]()
