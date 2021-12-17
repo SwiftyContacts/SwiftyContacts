@@ -164,3 +164,12 @@ public func updateContact(_ contact: CNMutableContact) throws {
     request.update(contact)
     try ContactStore.default.execute(request)
 }
+
+/// Deletes a contact from the contact store.
+/// - Parameter contact: Contact to be delete.
+/// - Throws: Error information, if an error occurred.
+public func deleteContact(_ contact: CNMutableContact) throws {
+    let request = CNSaveRequest()
+    request.delete(contact)
+    try ContactStore.default.execute(request)
+}

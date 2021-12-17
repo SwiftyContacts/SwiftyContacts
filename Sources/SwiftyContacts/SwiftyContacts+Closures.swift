@@ -212,3 +212,20 @@ public func updateContact(_ contact: CNMutableContact, _ completion: @escaping (
         completion(.failure(error))
     }
 }
+
+/// Deletes a contact from the contact store.
+/// - Parameters:
+///   - contact: Contact to be delete.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func deleteContact(_ contact: CNMutableContact, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.delete(contact)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}
