@@ -70,7 +70,7 @@ public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerial
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
-private func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
+public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
     return try ContactStore.default.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
 }
 
@@ -140,6 +140,17 @@ public func fetchContacts(withContainerIdentifier containerIdentifier: String, k
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Contact matching or linked to the identifier
-private func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> CNContact {
+public func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> CNContact {
     return try ContactStore.default.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)
+}
+
+/// Adds the specified contact to the contact store.
+/// - Parameters:
+///   - contact: The new contact to add.
+///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
+/// - Throws: Error information, if an error occurred.
+public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier identifier: String? = nil) throws {
+    let request = CNSaveRequest()
+    request.add(contact, toContainerWithIdentifier: identifier)
+    try ContactStore.default.execute(request)
 }

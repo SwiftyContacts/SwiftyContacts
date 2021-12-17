@@ -65,7 +65,7 @@ public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerial
 /// - Returns: returns either a success or a failure,
 /// on sucess: returns array of contacts
 /// on error: error information, if an error occurred.
-private func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)))
     } catch {
@@ -170,9 +170,27 @@ public func fetchContacts(withContainerIdentifier containerIdentifier: String, k
 /// - Returns: returns either a success or a failure,
 /// on sucess: contact matching or linked to the identifier
 /// on error: error information, if an error occurred.
-private func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<CNContact, Error>) -> Void) {
+public func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<CNContact, Error>) -> Void) {
     do {
         completion(.success(try ContactStore.default.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)))
+    } catch {
+        completion(.failure(error))
+    }
+}
+
+/// Adds the specified contact to the contact store.
+/// - Parameters:
+///   - contact: The new contact to add.
+///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier identifier: String? = nil, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.add(contact, toContainerWithIdentifier: identifier)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
     } catch {
         completion(.failure(error))
     }
