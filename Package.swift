@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
     name: "SwiftyContacts",
     platforms: [
-        .macOS(.v10_13),
-        .iOS(.v11),
-        .watchOS(.v3),
+        .macOS(.v10_15),
+        .iOS(.v13),
+        .watchOS(.v6),
     ],
     products: [
         .library(
