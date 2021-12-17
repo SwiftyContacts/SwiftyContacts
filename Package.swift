@@ -13,14 +13,17 @@ let package = Package(
     products: [
         .library(
             name: "SwiftyContacts",
-            targets: ["SwiftyContacts"]),
+            targets: ["SwiftyContacts"]
+        ),
     ],
     targets: [
         .target(
             name: "SwiftyContacts",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "SwiftyContactsTests",
-            dependencies: ["SwiftyContacts"]),
+            dependencies: ["SwiftyContacts"]
+        ),
     ]
 )

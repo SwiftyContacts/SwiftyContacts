@@ -1,6 +1,4 @@
-import XCTest
 @testable import SwiftyContacts
+import XCTest
 
-final class SwiftyContactsTests: XCTestCase {
-
-}
+final class SwiftyContactsTests: XCTestCase {}
