@@ -42,7 +42,7 @@ public func requestAccess() async -> Result<Bool, Error> {
 /// on sucess: returns array of contacts
 /// on error: error information, if an error occurred.
 ///
-@available(macOS 10.15.0, iOS 13.0.0, *)
+@available(macOS 12.0.0, iOS 15.0.0, *)
 public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder = .none, unifyResults: Bool = true) async -> Result<[CNContact], Error> {
     do {
         let contacts: [CNContact] = try await withCheckedThrowingContinuation { continuation in
