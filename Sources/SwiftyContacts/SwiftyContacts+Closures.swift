@@ -195,3 +195,20 @@ public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier id
         completion(.failure(error))
     }
 }
+
+/// Updates an existing contact in the contact store.
+/// - Parameters:
+///   - contact: The contact to update.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func updateContact(_ contact: CNMutableContact, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.update(contact)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}

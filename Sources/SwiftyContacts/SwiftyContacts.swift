@@ -154,3 +154,13 @@ public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier id
     request.add(contact, toContainerWithIdentifier: identifier)
     try ContactStore.default.execute(request)
 }
+
+/// Updates an existing contact in the contact store.
+/// - Parameters:
+///   - contact: The contact to update.
+/// - Throws: Error information, if an error occurred.
+public func updateContact(_ contact: CNMutableContact) throws {
+    let request = CNSaveRequest()
+    request.update(contact)
+    try ContactStore.default.execute(request)
+}
