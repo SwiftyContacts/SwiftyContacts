@@ -222,3 +222,14 @@ public func deleteGroup(_ group: CNMutableGroup) throws {
 public func fetchContact(in group: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
     return try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: group), keysToFetch: keysToFetch)
 }
+
+/// Add a new member to a group.
+/// - Parameters:
+///   - contact: The new member to add to the group.
+///   - group: The group to add the member to.
+/// - Throws: Error information, if an error occurred.
+public func addContact(_ contact: CNContact, to group: CNGroup) throws {
+    let request = CNSaveRequest()
+    request.addMember(contact, to: group)
+    try ContactStore.default.execute(request)
+}
