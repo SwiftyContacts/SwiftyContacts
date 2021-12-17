@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SwiftyContacts",
     platforms: [
-        .macOS(.v10_12),
-        .iOS(.v10),
+        .macOS(.v10_13),
+        .iOS(.v11),
         .watchOS(.v3),
     ],
     products: [
@@ -25,6 +25,5 @@ let package = Package(
             name: "SwiftyContactsTests",
             dependencies: ["SwiftyContacts"]
         ),
-    ],
-    swiftLanguageVersions: [.v5]
+    ]
 )

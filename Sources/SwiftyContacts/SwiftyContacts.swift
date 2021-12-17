@@ -105,7 +105,7 @@ public func fetchContactsOnBackgroundThread(keysToFetch: [CNKeyDescriptor] = [CN
         fetchRequest.unifyResults = true
         fetchRequest.sortOrder = .userDefault
         do {
-            try CNContactStore().enumerateContacts(with: fetchRequest) { (contact, _) -> Void in
+            try CNContactStore().enumerateContacts(with: fetchRequest) { contact, _ -> Void in
                 contacts.append(contact)
             }
             DispatchQueue.main.async { () -> Void in
@@ -155,11 +155,9 @@ public func getContactFromID(Identifires identifiers: [String], completionHandle
 /// - parameter identifier: A value that matches with phone number of a contact.
 /// - parameter completionHandler: Returns Either CNContact or Error.
 
-
-public func getContactFromPhone(Identifires phoneNumber: CNPhoneNumber, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> ()) {
-    
-    let contactStore: CNContactStore = CNContactStore()
-    var contacts: [CNContact] = [CNContact]()
+public func getContactFromPhone(Identifires phoneNumber: String, completionHandler: @escaping (_ result: Result<[CNContact], Error>) -> Void) {
+    let contactStore = CNContactStore()
+    var contacts = [CNContact]()
     if #available(iOS 11.0, *) {
         let predicate: NSPredicate = CNContact.predicateForContacts(matching: CNPhoneNumber(stringValue: phoneNumber))
         do {
@@ -168,10 +166,8 @@ public func getContactFromPhone(Identifires phoneNumber: CNPhoneNumber, completi
         } catch {
             completionHandler(.failure(error))
         }
-
     }
 }
-
 
 // PRAGMA MARK: - Contact Operations
 
