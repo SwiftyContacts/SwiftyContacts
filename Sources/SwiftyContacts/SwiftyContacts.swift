@@ -28,6 +28,7 @@ class ContactStore {
 /// Requests access to the user's contacts.
 /// - Throws: Error information, if an error occurred.
 /// - Returns: returns  true if the user allows access to contacts
+@available(macOS 10.15.0, iOS 13.0.0, *)
 public func requestAccess() async throws -> Bool {
     return try await ContactStore.default.requestAccess(for: .contacts)
 }
@@ -45,6 +46,7 @@ public func authorizationStatus() -> CNAuthorizationStatus {
 ///   - unifyResults: A Boolean value that indicates whether to return linked contacts as unified contacts.
 /// - Throws: Error information, if an error occurred.
 /// - Returns: array of contacts
+@available(macOS 10.15.0, iOS 13.0.0, *)
 public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder = .none, unifyResults: Bool = true) async throws -> [CNContact] {
     return try await withCheckedThrowingContinuation { continuation in
         do {
