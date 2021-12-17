@@ -81,7 +81,7 @@ public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(matchingName name: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingName: name), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContacts(matchingName: name), keysToFetch: keysToFetch)
 }
 
 /// Fetch contacts matching an email address.
@@ -91,7 +91,7 @@ public func fetchContacts(matchingName name: String, keysToFetch: [CNKeyDescript
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(matchingEmailAddress emailAddress: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingEmailAddress: emailAddress), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContacts(matchingEmailAddress: emailAddress), keysToFetch: keysToFetch)
 }
 
 /// Fetch contacts matching a phone number.
@@ -101,7 +101,7 @@ public func fetchContacts(matchingEmailAddress emailAddress: String, keysToFetch
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(matching phoneNumber: CNPhoneNumber, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matching: phoneNumber), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContacts(matching: phoneNumber), keysToFetch: keysToFetch)
 }
 
 /// To fetch contacts matching contact identifiers.
@@ -111,7 +111,7 @@ public func fetchContacts(matching phoneNumber: CNPhoneNumber, keysToFetch: [CNK
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(withIdentifiers identifiers: [String], keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(withIdentifiers: identifiers), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContacts(withIdentifiers: identifiers), keysToFetch: keysToFetch)
 }
 
 /// To fetch contacts matching group identifier
@@ -121,7 +121,7 @@ public func fetchContacts(withIdentifiers identifiers: [String], keysToFetch: [C
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(withGroupIdentifier groupIdentifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInGroup(withIdentifier: groupIdentifier), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: groupIdentifier), keysToFetch: keysToFetch)
 }
 
 /// find the contacts in the specified container.
@@ -131,7 +131,7 @@ public func fetchContacts(withGroupIdentifier groupIdentifier: String, keysToFet
 /// - Throws: Error information, if an error occurred.
 /// - Returns: Array  of contacts
 public func fetchContacts(withContainerIdentifier containerIdentifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
-    return try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInContainer(withIdentifier: containerIdentifier), keysToFetch: keysToFetch)
+    return try fetchContacts(predicate: CNContact.predicateForContactsInContainer(withIdentifier: containerIdentifier), keysToFetch: keysToFetch)
 }
 
 /// Fetch a  contact with a given identifier.
@@ -193,4 +193,32 @@ public func addGroup(_ name: String, toContainerWithIdentifier identifier: Strin
     group.name = name
     request.add(group, toContainerWithIdentifier: identifier)
     try ContactStore.default.execute(request)
+}
+
+/// Updates an existing group in the contact store.
+/// - Parameter group: The group to update.
+/// - Throws: Error information, if an error occurred.
+public func updateGroup(_ group: CNMutableGroup) throws {
+    let request = CNSaveRequest()
+    request.update(group)
+    try ContactStore.default.execute(request)
+}
+
+/// Deletes a group from the contact store.
+/// - Parameter group: The group to delete.
+/// - Throws: Error information, if an error occurred.
+public func deleteGroup(_ group: CNMutableGroup) throws {
+    let request = CNSaveRequest()
+    request.delete(group)
+    try ContactStore.default.execute(request)
+}
+
+/// find the contacts that are members in the specified group.
+/// - Parameters:
+///   - group: The group identifier to be matched.
+///   - keysToFetch: The contact fetch request that specifies the search criteria.
+/// - Throws: Array  of contacts
+/// - Returns: Error information, if an error occurred.
+public func fetchContact(in group: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact] {
+    return try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: group), keysToFetch: keysToFetch)
 }
