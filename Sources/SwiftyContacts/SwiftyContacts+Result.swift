@@ -24,7 +24,7 @@
 /// - Returns: returns either a success or a failure,
 /// on sucess: returns true if the user allows access to contacts
 /// on error: error information, if an error occurred.
-@available(macOS 10.15.0, iOS 13.0.0, *)
+@available(macOS 12.0.0, iOS 15.0.0, *)
 public func requestAccess() async -> Result<Bool, Error> {
     do {
         return await .success(try requestAccess())
