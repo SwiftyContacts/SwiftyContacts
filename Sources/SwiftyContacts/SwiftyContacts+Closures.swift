@@ -229,3 +229,18 @@ public func deleteContact(_ contact: CNMutableContact, _ completion: @escaping (
         completion(.failure(error))
     }
 }
+
+/// Fetches all groups matching the specified predicate.
+/// - Parameters:
+///   - predicate: The predicate to use to fetch the matching groups. Set predicate to nil to match all groups.
+///   - completion: returns either a success or a failure,
+/// on sucess: An array of CNGroup objects that match the predicate.
+/// on error: error information, if an error occurred.
+public func fetchGroups(matching predicate: NSPredicate? = nil, _ completion: @escaping (Result<[CNGroup], Error>) -> Void) {
+    do {
+        let groups = try ContactStore.default.groups(matching: predicate)
+        completion(.success(groups))
+    } catch {
+        completion(.failure(error))
+    }
+}
