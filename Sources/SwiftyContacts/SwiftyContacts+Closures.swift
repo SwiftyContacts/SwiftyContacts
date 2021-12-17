@@ -244,3 +244,23 @@ public func fetchGroups(matching predicate: NSPredicate? = nil, _ completion: @e
         completion(.failure(error))
     }
 }
+
+/// Adds a group to the contact store.
+/// - Parameters:
+///   - name: The new group to add.
+///   - identifier: The container identifier to add the new group to. Set to nil for the default container.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func addGroup(_ name: String, toContainerWithIdentifier identifier: String? = nil, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        let group = CNMutableGroup()
+        group.name = name
+        request.add(group, toContainerWithIdentifier: identifier)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}

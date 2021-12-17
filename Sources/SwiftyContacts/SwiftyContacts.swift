@@ -181,3 +181,16 @@ public func deleteContact(_ contact: CNMutableContact) throws {
 public func fetchGroups(matching predicate: NSPredicate? = nil) throws -> [CNGroup] {
     return try ContactStore.default.groups(matching: predicate)
 }
+
+/// Adds a group to the contact store.
+/// - Parameters:
+///   - name: The new group to add.
+///   - identifier: The container identifier to add the new group to. Set to nil for the default container.
+/// - Throws: Error information, if an error occurred.
+public func addGroup(_ name: String, toContainerWithIdentifier identifier: String? = nil) throws {
+    let request = CNSaveRequest()
+    let group = CNMutableGroup()
+    group.name = name
+    request.add(group, toContainerWithIdentifier: identifier)
+    try ContactStore.default.execute(request)
+}
