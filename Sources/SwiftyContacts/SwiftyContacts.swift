@@ -233,3 +233,14 @@ public func addContact(_ contact: CNContact, to group: CNGroup) throws {
     request.addMember(contact, to: group)
     try ContactStore.default.execute(request)
 }
+
+/// Removes a contact as a member of a group.
+/// - Parameters:
+///   - contact: The contact to remove from the group membership.
+///   - group: The group to remove the contact from its membership.
+/// - Throws: Error information, if an error occurred.
+public func deleteContact(_ contact: CNContact, from group: CNGroup) throws {
+    let request = CNSaveRequest()
+    request.removeMember(contact, from: group)
+    try ContactStore.default.execute(request)
+}
