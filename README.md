@@ -71,9 +71,51 @@ dependencies: [
 let access = try await requestAccess()
 ```
 
+#### Request the current authorization status.
+```swift
+let status = authorizationStatus()
+print(status == CNAuthorizationStatus.authorized)
+```
+
 #### [Fetch all contacts from device](/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults___).md)
 ```swift
 let contacts = try await fetchContacts()
+```
+
+#### Fetch contacts matching a name.
+```swift
+let contacts = try await fetchContacts(matchingName: "Satish Babariya")
+```
+
+
+#### Fetch contacts matching an email address.
+```swift
+let contacts = try await fetchContacts(matchingEmailAddress: "satish.babariya@gmail.com")
+```
+
+#### Fetch contacts matching a phone number.
+```swift
+let contacts = try await fetchContacts(matching: CNPhoneNumber(stringValue: "+919426678969"))
+```
+
+#### To fetch contacts matching contact identifiers.
+```swift
+let contacts = try await fetchContacts(withIdentifiers: ["id1", "id2" ... ])
+```
+
+#### To fetch contacts matching group identifier
+```swift
+let contacts = try await fetchContacts(withGroupIdentifier: "")
+```
+
+#### find the contacts in the specified container.
+```swift
+let contacts = try await fetchContacts(withContainerIdentifier: "")
+```
+
+#### Fetch a contact with a given identifier.
+```swift
+let contact = try await fetchContact(withIdentifier: "")
 ```
 
 ### closures
