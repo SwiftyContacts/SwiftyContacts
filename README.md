@@ -18,7 +18,7 @@ A Swift library for Contacts framework.
 - [Installation](#installation)
 - [Get started](#get-started)
     - [async-await](#async-await)
-        - [Requests access to the user's contacts](#requestAccess)
+        - [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
     - [closures](#closures) 
 - [License](#license)
 
@@ -67,7 +67,7 @@ dependencies: [
 
 ### async-await
 
-#### [Requests access to the user's contacts](#requestAccess)
+#### [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
 ```swift
 let access = try await requestAccess()
 ```
