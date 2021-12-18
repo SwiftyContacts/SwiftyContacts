@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
  s.authors = { "Satish Babariya" => "satish.babariya@gmail.com" }
  s.source = { :git => 'https://github.com/satishbabariya/SwiftyContacts.git', :tag => s.version }
  s.platforms = { :ios => "11.0", :osx => "10.13" }
- s.swift_version = '5.5'
+ s.swift_version = '5.0'
  s.source_files  = "Sources/SwiftyContacts/*.swift"
  s.framework  = "Foundation" ,"Contacts"
 end

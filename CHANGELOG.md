@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- rev v4.0.0 [\#30](https://github.com/satishbabariya/SwiftyContacts/pull/30) ([satishbabariya](https://github.com/satishbabariya))
 - minor changes [\#29](https://github.com/satishbabariya/SwiftyContacts/pull/29) ([satishbabariya](https://github.com/satishbabariya))
 - fix typos [\#28](https://github.com/satishbabariya/SwiftyContacts/pull/28) ([ahmdyasser](https://github.com/ahmdyasser))
 - Get contact from a phone number as a string [\#24](https://github.com/satishbabariya/SwiftyContacts/pull/24) ([wertpoiu](https://github.com/wertpoiu))
