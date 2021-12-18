@@ -44,6 +44,23 @@ A Swift library for Contacts framework.
     - [closures](#closures)
       - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
       - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
+      - [Fetch contacts matching a name.](#fetch-contacts-matching-a-name-1)
+      - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address-1)
+      - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number-1)
+      - [Fetch contacts matching contact identifiers.](#fetch-contacts-matching-contact-identifiers)
+      - [Fetch contacts matching group identifier](#fetch-contacts-matching-group-identifier)
+      - [Find the contacts in the specified container.](#find-the-contacts-in-the-specified-container-1)
+      - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier-1)
+      - [Adds the specified contact to the contact store.](#adds-the-specified-contact-to-the-contact-store)
+      - [Updates an existing contact in the contact store.](#updates-an-existing-contact-in-the-contact-store)
+      - [Deletes a contact from the contact store.](#deletes-a-contact-from-the-contact-store)
+      - [Fetches all groups matching the specified predicate.](#fetches-all-groups-matching-the-specified-predicate)
+      - [Adds a group to the contact store.](#adds-a-group-to-the-contact-store-1)
+      - [Updates an existing group in the contact store.](#updates-an-existing-group-in-the-contact-store-1)
+      - [Deletes a group from the contact store.](#deletes-a-group-from-the-contact-store-1)
+      - [Find the contacts that are members in the specified group.](#find-the-contacts-that-are-members-in-the-specified-group-1)
+      - [Add a new member to a group.](#add-a-new-member-to-a-group-1)
+      - [Removes a contact as a member of a group.](#removes-a-contact-as-a-member-of-a-group-1)
   - [Author](#author)
   - [License](#license)
 
@@ -231,6 +248,226 @@ fetchContacts { result in
     }
 }
 ```
+
+#### Fetch contacts matching a name.
+```swift
+fetchContacts(matchingName: "Satish") { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetch contacts matching an email address.
+```swift
+fetchContacts(matchingEmailAddress: "satish.babariya@gmail.com") { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetch contacts matching a phone number.
+```swift
+fetchContacts(matching: CNPhoneNumber(stringValue: "+919426678969")) { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetch contacts matching contact identifiers.
+```swift
+fetchContacts(withIdentifiers: []) { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetch contacts matching group identifier
+```swift
+fetchContacts(withGroupIdentifier: "") { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Find the contacts in the specified container.
+```swift
+fetchContacts(withContainerIdentifier: "") { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetch a contact with a given identifier.
+```swift
+fetchContact(withIdentifier: "") { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Adds the specified contact to the contact store.
+```swift
+let contact = CNMutableContact()
+contact.givenName = "Satish"
+addContact(contact) { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Updates an existing contact in the contact store.
+```swift
+guard let contact = contact.mutableCopy() as? CNMutableContact else {
+    return
+}
+contact.givenName = "Satish"
+updateContact(contact) { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Deletes a contact from the contact store.
+```swift
+guard let contact = contact.mutableCopy() as? CNMutableContact else {
+    return
+}
+deleteContact(contact) { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Fetches all groups matching the specified predicate.
+```swift
+fetchGroups() { result in
+    switch result {
+    case let .success(groups):
+        print(groups)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Adds a group to the contact store.
+```swift
+addGroup("My Group") { result in
+    switch result {
+    case let .success(group):
+        print(group)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Updates an existing group in the contact store.
+```swift
+guard let group = group.mutableCopy() as? CNMutableGroup else {
+    return
+}
+updateGroup(group) { result in
+    switch result {
+    case let .success(group):
+        print(group)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Deletes a group from the contact store.
+```swift
+guard let group = group.mutableCopy() as? CNMutableGroup else {
+    return
+}
+deleteGroup(group) { result in
+    switch result {
+    case let .success(group):
+        print(group)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Find the contacts that are members in the specified group.
+```swift
+fetchContacts(in: "My Group") { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Add a new member to a group.
+```swift
+addContact(contact, to: group) { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
+#### Removes a contact as a member of a group.
+```swift
+removeContact(contact, from: group) { result in
+    switch result {
+    case let .success(contact):
+        print(contact)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
+
 
 ## Author
 
