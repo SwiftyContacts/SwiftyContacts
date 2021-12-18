@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.0.1](https://github.com/SwiftyContacts/SwiftyContacts/tree/4.0.1) (2021-12-18)
+
+[Full Changelog](https://github.com/SwiftyContacts/SwiftyContacts/compare/4.0.0...4.0.1)
+
 ## [4.0.0](https://github.com/SwiftyContacts/SwiftyContacts/tree/4.0.0) (2021-12-18)
 
 [Full Changelog](https://github.com/SwiftyContacts/SwiftyContacts/compare/3.0.16...4.0.0)
