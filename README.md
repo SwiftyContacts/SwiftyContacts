@@ -14,24 +14,29 @@
 
 A Swift library for Contacts framework.
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Get started](#get-started)
+- [SwiftyContacts](#swiftycontacts)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+    - [CocoaPods](#cocoapods)
+    - [Swift Package Manager](#swift-package-manager)
+  - [Get started](#get-started)
     - [async-await](#async-await)
-        - [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
-        - [Request the current authorization status](#request-the-current-authorization-status)
-        - [Fetch all contacts from device](#fetch-all-contacts-from-device)
-        - [Fetch contacts matching a name](#fetch-contacts-matching-a-name)
-        - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address)
-        - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number)
-        - [Fetch contacts matching contact identifiers.](#to-fetch-contacts-matching-contact-identifiers)
-        - [Fetch contacts matching group identifier](#to-fetch-contacts-matching-group-identifier)
-        - [Find the contacts in the specified container.](#find-the-contacts-in-the-specified-container)
-        - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier)
-    - [closures](#closures) 
-        - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
-        - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
-- [License](#license)
+      - [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
+      - [Request the current authorization status](#request-the-current-authorization-status)
+      - [Fetch all contacts from device](#fetch-all-contacts-from-device)
+      - [Fetch contacts matching a name.](#fetch-contacts-matching-a-name)
+      - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address)
+      - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number)
+      - [To fetch contacts matching contact identifiers.](#to-fetch-contacts-matching-contact-identifiers)
+      - [To fetch contacts matching group identifier](#to-fetch-contacts-matching-group-identifier)
+      - [find the contacts in the specified container.](#find-the-contacts-in-the-specified-container)
+      - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier)
+      - [Add contact to the contact store.](#add-contact-to-the-contact-store)
+    - [closures](#closures)
+      - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
+      - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
+  - [Author](#author)
+  - [License](#license)
 
 ## Requirements
 
@@ -128,6 +133,13 @@ let contacts = try await fetchContacts(withContainerIdentifier: "")
 #### Fetch a contact with a given identifier.
 ```swift
 let contact = try await fetchContact(withIdentifier: "")
+```
+
+#### Add contact to the contact store.
+```swift
+let contact = CNMutableContact()
+contact.givenName = "Satish"
+try addContact(contact)
 ```
 
 ### closures

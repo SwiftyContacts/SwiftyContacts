@@ -66,4 +66,16 @@ final class SwiftyContactsTests: XCTestCase {
             }
         }
     }
+
+    func testAddContact() async {
+        do {
+            let contact = CNMutableContact()
+            contact.givenName = "Satish"
+            try addContact(contact)
+            let contacts = try fetchContacts(matchingName: "Satish")
+            XCTAssertEqual(contacts.count >= 0, true)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
 }
