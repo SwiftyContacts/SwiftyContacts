@@ -34,6 +34,13 @@ A Swift library for Contacts framework.
       - [Add contact to the contact store.](#add-contact-to-the-contact-store)
       - [Update contact to the contact store.](#update-contact-to-the-contact-store)
       - [Delete contact to the contact store.](#delete-contact-to-the-contact-store)
+      - [Adds a group to the contact store.](#adds-a-group-to-the-contact-store)
+      - [Fetches all groups in the contact store.](#fetches-all-groups-in-the-contact-store)
+      - [Updates an existing group in the contact store.](#updates-an-existing-group-in-the-contact-store)
+      - [Deletes a group from the contact store.](#deletes-a-group-from-the-contact-store)
+      - [Find the contacts that are members in the specified group.](#find-the-contacts-that-are-members-in-the-specified-group)
+      - [Add a new member to a group.](#add-a-new-member-to-a-group)
+      - [Removes a contact as a member of a group.](#removes-a-contact-as-a-member-of-a-group)
     - [closures](#closures)
       - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
       - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
@@ -159,6 +166,44 @@ guard let contact = contact.mutableCopy() as? CNMutableContact else {
     return
 }
 try deleteContact(contact)
+```
+
+#### Adds a group to the contact store.
+```swift
+try addGroup("My Group")
+```
+
+#### Fetches all groups in the contact store.
+```swift
+let groups = try await fetchGroups()
+```
+
+#### Updates an existing group in the contact store.
+```swift
+guard let group = group.mutableCopy() as? CNMutableGroup else {
+    return
+}
+try updateGroup(group)
+```
+
+#### Deletes a group from the contact store.
+```swift
+try deleteGroup(group)
+```
+
+#### Find the contacts that are members in the specified group.
+```swift
+let contacts = try fetchContacts(in: "My Group")
+```
+
+#### Add a new member to a group.
+```swift
+try addContact(contact, to: group)
+```
+
+#### Removes a contact as a member of a group.
+```swift
+try deleteContact(contact, from: group)
 ```
 
 ### closures
