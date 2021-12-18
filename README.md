@@ -32,6 +32,8 @@ A Swift library for Contacts framework.
       - [find the contacts in the specified container.](#find-the-contacts-in-the-specified-container)
       - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier)
       - [Add contact to the contact store.](#add-contact-to-the-contact-store)
+      - [Update contact to the contact store.](#update-contact-to-the-contact-store)
+      - [Delete contact to the contact store.](#delete-contact-to-the-contact-store)
     - [closures](#closures)
       - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
       - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
@@ -140,6 +142,23 @@ let contact = try await fetchContact(withIdentifier: "")
 let contact = CNMutableContact()
 contact.givenName = "Satish"
 try addContact(contact)
+```
+
+#### Update contact to the contact store.
+```swift
+guard let contact = contact.mutableCopy() as? CNMutableContact else {
+    return
+}
+contact.givenName = "Satish"
+try updateContact(contact)
+```
+
+#### Delete contact to the contact store.
+```swift
+guard let contact = contact.mutableCopy() as? CNMutableContact else {
+    return
+}
+try deleteContact(contact)
 ```
 
 ### closures
