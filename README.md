@@ -71,7 +71,7 @@ dependencies: [
 let access = try await requestAccess()
 ```
 
-#### [Fetch all contacts from device] (/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
+#### [Fetch all contacts from device](/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults___).md)
 ```swift
 let contacts = try await fetchContacts()
 ```
@@ -90,7 +90,7 @@ requestAccess { result in
 }
 ```
 
-#### [Fetch all contacts from device] (/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
+#### [Fetch all contacts from device](/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
 ```swift
 fetchContacts { result in
     switch result {
