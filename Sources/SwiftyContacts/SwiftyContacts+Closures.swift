@@ -264,3 +264,87 @@ public func addGroup(_ name: String, toContainerWithIdentifier identifier: Strin
         completion(.failure(error))
     }
 }
+
+/// Updates an existing group in the contact store.
+/// - Parameters:
+///   - group: The group to update.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func updateGroup(_ group: CNMutableGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.update(group)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}
+
+/// Deletes a group from the contact store.
+/// - Parameters:
+///   - group: The group to delete.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func deleteGroup(_ group: CNMutableGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.delete(group)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}
+
+/// find the contacts that are members in the specified group.
+/// - Parameters:
+///   - group: The group identifier to be matched.
+///   - keysToFetch: The contact fetch request that specifies the search criteria.
+///   - completion: returns either a success or a failure,
+/// on sucess: Array  of contacts
+/// on error: error information, if an error occurred.
+public func fetchContact(in group: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+    do {
+        let contacts = try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: group), keysToFetch: keysToFetch)
+        completion(.success(contacts))
+    } catch {
+        completion(.failure(error))
+    }
+}
+
+/// Add a new member to a group.
+/// - Parameters:
+///   - contact: The new member to add to the group.
+///   - group: The group to add the member to.
+///   - completion: returns either a success or a failure,
+/// on sucess: returns true
+/// on error: error information, if an error occurred.
+public func addContact(_ contact: CNContact, to group: CNGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.addMember(contact, to: group)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}
+
+/// Removes a contact as a member of a group.
+/// - Parameters:
+///   - contact: The contact to remove from the group membership.
+///   - group: The group to remove the contact from its membership.
+///   - completion: Error information, if an error occurred.
+public func deleteContact(_ contact: CNContact, from group: CNGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    do {
+        let request = CNSaveRequest()
+        request.removeMember(contact, from: group)
+        try ContactStore.default.execute(request)
+        completion(.success(true))
+    } catch {
+        completion(.failure(error))
+    }
+}
