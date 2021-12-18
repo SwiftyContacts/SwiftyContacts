@@ -99,7 +99,7 @@ Once you have your Swift package set up, adding SwiftyContacts as a dependency i
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/SwiftyContacts.git", .upToNextMajor(from: "4.0.0"))
+    .package(url: "https://github.com/SwiftyContacts/SwiftyContacts.git", .upToNextMajor(from: "4.0.0"))
 ]
 ```
 
