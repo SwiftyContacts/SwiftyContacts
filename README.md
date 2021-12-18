@@ -66,7 +66,7 @@ dependencies: [
 
 ### async-await
 
-#### [Requests access to the user's contacts] (/Documentation/Reference/methods/requestAccess().md)
+#### [Requests access to the user's contacts](/Documentation/Reference/methods/requestAccess().md)
 ```swift
 let access = try await requestAccess()
 ```
@@ -78,7 +78,7 @@ let contacts = try await fetchContacts()
 
 ### closures
 
-#### Requests access to the user's contacts
+#### [Requests access to the user's contacts](/Documentation/Reference/methods/requestAccess(__).md)
 ```swift
 requestAccess { result in
     switch result {
