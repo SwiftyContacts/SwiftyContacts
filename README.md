@@ -19,13 +19,14 @@ A Swift library for Contacts framework.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Get started](#get-started)
-- [RxSwift](#rxswift)
+    - [async-await](#async-await)
+    - [closures](#closures) 
 - [License](#license)
 
 ## Requirements
 
-- iOS 9.0+ / Mac OS X 10.12+ /  watchOS 3.0+
-- Xcode 9.0+
+- iOS 11.0+ / Mac OS X 10.13+ /  watchOS 4.0+
+- Xcode 13.0+
 
 ## Installation
 
@@ -40,24 +41,7 @@ $ gem install cocoapods
 To integrate SwiftyContacts into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
 pod 'SwiftyContacts'
-
-#or
-
-pod 'SwiftyContacts/RxSwift'
-
-```
-
-For swift 3.x use
-
-```ruby
-
-// Swift 3.x
-pod 'SwiftyContacts' , '~> 2.0.7'
 ```
 
 Then, run the following command:
@@ -66,442 +50,42 @@ Then, run the following command:
 $ pod install
 ```
 
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that automates the process of adding frameworks to your Cocoa application.
-
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
-
-```bash
-$ brew update
-$ brew install carthage
-```
-
-To integrate SwiftyContacts into your Xcode project using Carthage, specify it in your `Cartfile`:
-
-```ogdl
-github "SwiftyContacts/SwiftyContacts" ~> 3.0.8
-```
 ### Swift Package Manager
 
-To use SwiftyContacts as a [Swift Package Manager](https://swift.org/package-manager/) package just add the following in your Package.swift file.
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but SwiftyContacts does support its use on supported platforms.
 
-``` swift
-import PackageDescription
+Once you have your Swift package set up, adding SwiftyContacts as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
-let package = Package(
-    name: "HelloSwiftyContacts",
-    dependencies: [
-        .Package(url: "https://github.com/satishbabariya/SwiftyContacts", "3.0.8")
-    ]
-)
+```swift
+dependencies: [
+    .package(url: "https://github.com/Alamofire/SwiftyContacts.git", .upToNextMajor(from: "4.0.0"))
+]
 ```
-
-### Manually
-
-If you prefer not to use either of the aforementioned dependency managers, you can integrate SwiftyContacts into your project manually.
-
-
-#### Embeded Binaries
-
-- Download the latest release from https://github.com/satishbabariya/SwiftyContacts/releases
-- Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
-- In the tab bar at the top of that window, open the "General" panel.
-- Click on the `+` button under the "Embedded Binaries" section.
-- Add the downloaded `SwiftyContacts.framework`.
-- And that's it!
 
 
 ## Get started
 
-Import SwiftyContacts into your porject
 
+### async-await
+
+#### Requests access to the user's contacts
 ```swift
-    import SwiftyContacts
+let access = try await requestAccess()
 ```
 
 
-For requesting an access for getting contacts.
-The user will only be prompted the first time access is requested.
+### closures
 
+#### Requests access to the user's contacts
 ```swift
-    requestAccess { (responce) in
-        if responce {
-            print("Contacts Access Granted")
-        } else {
-            print("Contacts Access Denied")
-        }
+requestAccess { result in
+    switch result {
+    case let .success(bool):
+        print(bool)
+    case let .failure(error):
+        print(error)
     }
-```
-
-
-Determine Status of Acess Permission
-
-```swift
-    authorizationStatus { (status) in
-        switch status {
-            case .authorized:
-                print("authorized")
-                break
-            case .denied:
-                print("denied")
-                break
-            default:
-                break
-        }
-    }
-```
-
-Fetch Contacts 
- -- Result will be Array of CNContacts
-
-```swift
-    fetchContacts { (result) in
-        switch result {
-            case .success(let contacts):
-                // Do your thing here with [CNContacts] array
-                break
-            case .failure(let error):
-                break
-        }
-    }
-```
-
-Fetch Contacts by Order
--- Sorted by CNContactSortOrder
--- Result will be Array of CNContacts
-
-```swift
-    fetchContacts(ContactsSortorder: .givenName) { (result) in
-        switch result{
-            case .success(let contacts):
-                // Do your thing here with [CNContacts] array
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    })
-```
-
-Fetch Contacts on Background Thread
-
-```swift
-    fetchContactsOnBackgroundThread(completionHandler: { (result) in
-        switch result{
-            case .success(let contacts):
-                // Do your thing here with [CNContacts] array	 
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    })
-```
-
-Search Contact
-
-```swift
-
-    searchContact(SearchString: "john") { (result) in
-        switch result{
-            case .success(let contacts):
-                // Contacts Array includes Search Result Contacts
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    }
-
-```
-
-Get CNContact From Identifire
-
-```swift
-
-    getContactFromID(Identifire: "XXXXXXXXX", completionHandler: { (result) in  
-        switch result{
-            case .success(let contact):
-                // CNContact
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    })
-
-```
-
-Get CNContact From Phone number as a String
-
-```swift
-
-    getContactFromPhone(phoneNumber: "XXXXXXXXX", completionHandler: { (result) in  
-        switch result{
-            case .success(let contact):
-                // CNContact
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    })
-
-```
-
-Add Contact
-
-```swift
-
-    let contact : CNMutableContact = CNMutableContact()
-    contact.givenName = "Satish"
-    // OR Use contact.mutableCopy() For Any CNContact
-
-    addContact(Contact: contact) { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Contact Successfully Added")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-
-```
-
-Add Contact in Container
-
-```swift
-
-    addContactInContainer(Contact: CNMutableContact, Container_Identifier: String) { (result) in
-        //Same As Add Contact
-    }
-
-```
-
-Update Contact
-
-```swift
-
-    updateContact(Contact: contact) { (result) in
-        switch result{
-        case .success(let bool):
-            if bool{
-                print("Contact Successfully Updated")
-            }
-            break
-        case .failure(let error):
-            print(error.localizedDescription)
-            break
-        }
-    }
-
-```
-
-Delete Contact
-
-```swift
-    // Use contact.mutableCopy() To convert CNContact to CNMutableContact
-    deleteContact(Contact: contact) { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Contact Successfully Deleted")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-```
-
-Fetch List Of Groups
-
-```swift
-    fetchGroups { (result) in
-        switch result{
-            case .success(let groups):
-                // List Of Groups in groups array
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-            break
-        }
-    }
-```
-
-Create Group
-
-```swift
-    createGroup(Group_Name: "Satish") { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Group Successfully Created")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-```
-
-Create Group in Container
-
-```swift
-    createGroup(Group_Name: "Satish" , ContainerIdentifire: "ID") { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Group Successfully Created")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-```
-
-Update Group
-
-```swift
-    updateGroup(Group: group, New_Group_Name: "New Name") { (result) in
-        switch result{
-            case .success(response: let bool):
-                if bool{
-                    print("Group Successfully Updated")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-
-```
-
-Remove Group
-
-```swift
-    removeGroup(Group: group) { (result) in
-        switch result{
-            case .success(response: let bool):
-                if bool{
-                    print("Group Successfully Removed")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-
-```
-
-Fetch Contacts In Group
-
-```swift
-
-    fetchContactsInGorup(Group: group) { (result) in
-        switch result{
-            case .success(let contacts):
-                // Do your thing here with [CNContacts] array	 
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    }
-
-// OR Use
-
-    fetchContactsInGorup2(Group: group) { (result) in
-        switch result{
-            case .success(let contacts):
-                // Do your thing here with [CNContacts] array	 
-                break
-            case .failure(let error):
-                print(error)
-                break
-        }
-    }
-
-```
-
-Add Contact To Group
-
-```swift
-    addContactToGroup(Group: group, Contact: contact) { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Contact Successfully Added To Group")         
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-```
-
-Remove Contact From Group
-
-```swift
-    removeContactFromGroup(Group: group, Contact: contact) { (result) in
-        switch result{
-            case .success(let bool):
-                if bool{
-                    print("Contact Successfully Added To Group")
-                }
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-```
-
-Convert [CNContacts] TO CSV
-
-```swift
-
-    contactsToVCardConverter(contacts: ContactsArray) { (result) in
-        switch result {
-            case .success(let data):
-                // Use file extension will be .vcf
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-
-        }
-    }
-
-```
-
-Convert CSV TO [CNContact]
-
-```swift
-
-    VCardToContactConverter(data: data) { (result) in
-        switch result{
-            case .success(let contacts):
-                // Use Contacts array as you like   
-                break
-            case .failure(let error):
-                print(error.localizedDescription)
-                break
-        }
-    }
-
+}
 ```
 
 
