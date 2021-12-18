@@ -67,7 +67,7 @@ dependencies: [
 
 ### async-await
 
-#### [Requests access to the user's contacts](requestAccess)
+#### [Requests access to the user's contacts](#requestAccess)
 ```swift
 let access = try await requestAccess()
 ```
