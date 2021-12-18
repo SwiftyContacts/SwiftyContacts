@@ -19,7 +19,18 @@ A Swift library for Contacts framework.
 - [Get started](#get-started)
     - [async-await](#async-await)
         - [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
+        - [Request the current authorization status](#request-the-current-authorization-status)
+        - [Fetch all contacts from device](#fetch-all-contacts-from-device)
+        - [Fetch contacts matching a name](#fetch-contacts-matching-a-name)
+        - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address)
+        - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number)
+        - [To fetch contacts matching contact identifiers.](#to-fetch-contacts-matching-contact-identifiers)
+        - [To fetch contacts matching group identifier](#to-fetch-contacts-matching-group-identifier)
+        - [Find the contacts in the specified container.](#find-the-contacts-in-the-specified-container)
+        - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier)
     - [closures](#closures) 
+        - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
+        - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
 - [License](#license)
 
 ## Requirements
@@ -67,18 +78,18 @@ dependencies: [
 
 ### async-await
 
-#### [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
+#### Requests access to the user's contacts
 ```swift
 let access = try await requestAccess()
 ```
 
-#### Request the current authorization status.
+#### Request the current authorization status
 ```swift
 let status = authorizationStatus()
 print(status == CNAuthorizationStatus.authorized)
 ```
 
-#### [Fetch all contacts from device](/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults___).md)
+#### Fetch all contacts from device
 ```swift
 let contacts = try await fetchContacts()
 ```
@@ -121,7 +132,7 @@ let contact = try await fetchContact(withIdentifier: "")
 
 ### closures
 
-#### [Requests access to the user's contacts](/Documentation/Reference/methods/requestAccess(__).md)
+#### Requests access to the user's contacts
 ```swift
 requestAccess { result in
     switch result {
@@ -133,7 +144,7 @@ requestAccess { result in
 }
 ```
 
-#### [Fetch all contacts from device](/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
+#### Fetch all contacts from device
 ```swift
 fetchContacts { result in
     switch result {
