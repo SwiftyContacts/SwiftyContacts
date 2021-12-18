@@ -12,6 +12,10 @@ final class SwiftyContactsTests: XCTestCase {
         }
     }
 
+    func testAuthorizationStatus() {
+        XCTAssertEqual(authorizationStatus(), CNAuthorizationStatus.authorized)
+    }
+
     func testRequestAccessClosures() {
         let e = expectation(description: "testRequestAccessClosures")
 
@@ -37,7 +41,6 @@ final class SwiftyContactsTests: XCTestCase {
         do {
             let contacts = try await fetchContacts()
             XCTAssertEqual(contacts.count >= 0, true)
-
         } catch {
             XCTFail(error.localizedDescription)
         }

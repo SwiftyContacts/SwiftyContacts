@@ -1,7 +1,7 @@
 ### `addContact(_:toContainerWithIdentifier:)`
 
 ```swift
-public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier identifier: String? = nil) throws
+public func addContact(_ contact: CNContact, toContainerWithIdentifier identifier: String? = nil) throws
 ```
 
 Adds the specified contact to the contact store.

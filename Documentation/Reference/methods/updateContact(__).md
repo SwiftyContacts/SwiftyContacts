@@ -1,7 +1,7 @@
 ### `updateContact(_:)`
 
 ```swift
-public func updateContact(_ contact: CNMutableContact) throws
+public func updateContact(_ contact: CNContact) throws
 ```
 
 Updates an existing contact in the contact store.

@@ -1,7 +1,7 @@
 ### `updateGroup(_:)`
 
 ```swift
-public func updateGroup(_ group: CNMutableGroup) throws
+public func updateGroup(_ group: CNGroup) throws
 ```
 
 Updates an existing group in the contact store.

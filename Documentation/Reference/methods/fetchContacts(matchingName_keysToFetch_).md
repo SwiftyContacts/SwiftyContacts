@@ -4,7 +4,7 @@
 public func fetchContacts(matchingName name: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]) throws -> [CNContact]
 ```
 
-fetch contacts matching a name.
+Fetch contacts matching a name.
 - Parameters:
   - name: The name can contain any number of words.
   - keysToFetch: The contact fetch request that specifies the search criteria.

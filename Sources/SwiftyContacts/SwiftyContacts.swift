@@ -74,7 +74,7 @@ public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]
     return try ContactStore.default.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
 }
 
-/// fetch contacts matching a name.
+/// Fetch contacts matching a name.
 /// - Parameters:
 ///   - name: The name can contain any number of words.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
@@ -155,6 +155,18 @@ public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier id
     try ContactStore.default.execute(request)
 }
 
+/// Adds the specified contact to the contact store.
+/// - Parameters:
+///   - contact: The new contact to add.
+///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
+/// - Throws: Error information, if an error occurred.
+public func addContact(_ contact: CNContact, toContainerWithIdentifier identifier: String? = nil) throws {
+    guard let contact = contact.mutableCopy() as? CNMutableContact else {
+        return
+    }
+    try addContact(contact, toContainerWithIdentifier: identifier)
+}
+
 /// Updates an existing contact in the contact store.
 /// - Parameters:
 ///   - contact: The contact to update.
@@ -165,6 +177,17 @@ public func updateContact(_ contact: CNMutableContact) throws {
     try ContactStore.default.execute(request)
 }
 
+/// Updates an existing contact in the contact store.
+/// - Parameters:
+///   - contact: The contact to update.
+/// - Throws: Error information, if an error occurred.
+public func updateContact(_ contact: CNContact) throws {
+    guard let contact = contact.mutableCopy() as? CNMutableContact else {
+        return
+    }
+    try updateContact(contact)
+}
+
 /// Deletes a contact from the contact store.
 /// - Parameter contact: Contact to be delete.
 /// - Throws: Error information, if an error occurred.
@@ -172,6 +195,16 @@ public func deleteContact(_ contact: CNMutableContact) throws {
     let request = CNSaveRequest()
     request.delete(contact)
     try ContactStore.default.execute(request)
+}
+
+/// Deletes a contact from the contact store.
+/// - Parameter contact: Contact to be delete.
+/// - Throws: Error information, if an error occurred.
+public func deleteContact(_ contact: CNContact) throws {
+    guard let contact = contact.mutableCopy() as? CNMutableContact else {
+        return
+    }
+    try deleteContact(contact)
 }
 
 /// Fetches all groups in the contact store.
@@ -204,6 +237,16 @@ public func updateGroup(_ group: CNMutableGroup) throws {
     try ContactStore.default.execute(request)
 }
 
+/// Updates an existing group in the contact store.
+/// - Parameter group: The group to update.
+/// - Throws: Error information, if an error occurred.
+public func updateGroup(_ group: CNGroup) throws {
+    guard let group = group.mutableCopy() as? CNMutableGroup else {
+        return
+    }
+    try updateGroup(group)
+}
+
 /// Deletes a group from the contact store.
 /// - Parameter group: The group to delete.
 /// - Throws: Error information, if an error occurred.
@@ -211,6 +254,16 @@ public func deleteGroup(_ group: CNMutableGroup) throws {
     let request = CNSaveRequest()
     request.delete(group)
     try ContactStore.default.execute(request)
+}
+
+/// Deletes a group from the contact store.
+/// - Parameter group: The group to delete.
+/// - Throws: Error information, if an error occurred.
+public func deleteGroup(_ group: CNGroup) throws {
+    guard let group = group.mutableCopy() as? CNMutableGroup else {
+        return
+    }
+    try deleteGroup(group)
 }
 
 /// find the contacts that are members in the specified group.

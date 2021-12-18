@@ -1,7 +1,7 @@
 ### `deleteContact(_:)`
 
 ```swift
-public func deleteContact(_ contact: CNMutableContact) throws
+public func deleteContact(_ contact: CNContact) throws
 ```
 
 Deletes a contact from the contact store.

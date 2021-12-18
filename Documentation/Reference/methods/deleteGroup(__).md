@@ -1,7 +1,7 @@
 ### `deleteGroup(_:)`
 
 ```swift
-public func deleteGroup(_ group: CNMutableGroup) throws
+public func deleteGroup(_ group: CNGroup) throws
 ```
 
 Deletes a group from the contact store.
