@@ -66,11 +66,15 @@ dependencies: [
 
 ### async-await
 
-#### Requests access to the user's contacts
+#### [Requests access to the user's contacts] (/Documentation/Reference/methods/requestAccess().md)
 ```swift
 let access = try await requestAccess()
 ```
 
+#### [Fetch all contacts from device] (/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
+```swift
+let contacts = try await fetchContacts()
+```
 
 ### closures
 
@@ -81,11 +85,22 @@ requestAccess { result in
     case let .success(bool):
         print(bool)
     case let .failure(error):
-        print(error)
+        print(error.localizedDescription)
     }
 }
 ```
 
+#### [Fetch all contacts from device] (/Documentation/Reference/methods/fetchContacts(keysToFetch_order_unifyResults_).md)
+```swift
+fetchContacts { result in
+    switch result {
+    case let .success(contacts):
+        print(contacts)
+    case let .failure(error):
+        print(error.localizedDescription)
+    }
+}
+```
 
 ## Author
 

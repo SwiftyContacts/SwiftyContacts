@@ -7,7 +7,6 @@ final class SwiftyContactsTests: XCTestCase {
         do {
             let bool = try await requestAccess()
             XCTAssertEqual(bool, true)
-
         } catch {
             XCTFail(error.localizedDescription)
         }
