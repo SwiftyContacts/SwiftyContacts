@@ -25,6 +25,7 @@ class ContactStore {
     static var `default` = CNContactStore()
 }
 
+#if compiler(>=5.5) && canImport(_Concurrency)
 /// Requests access to the user's contacts.
 /// - Throws: Error information, if an error occurred.
 /// - Returns: returns  true if the user allows access to contacts
@@ -32,6 +33,7 @@ class ContactStore {
 public func requestAccess() async throws -> Bool {
     return try await ContactStore.default.requestAccess(for: .contacts)
 }
+#endif
 
 /// Indicates the current authorization status to access contact data.
 /// - Returns: Returns the authorization status for the given entityType.
@@ -39,6 +41,7 @@ public func authorizationStatus() -> CNAuthorizationStatus {
     return CNContactStore.authorizationStatus(for: .contacts)
 }
 
+#if compiler(>=5.5) && canImport(_Concurrency)
 /// Fetch all contacts from device
 /// - Parameters:
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
@@ -63,6 +66,7 @@ public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerial
         }
     }
 }
+#endif
 
 /// fetch contacts matching a conditions.
 /// - Parameters:
