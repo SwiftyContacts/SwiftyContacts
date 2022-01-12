@@ -26,13 +26,13 @@ class ContactStore {
 }
 
 #if compiler(>=5.5) && canImport(_Concurrency)
-/// Requests access to the user's contacts.
-/// - Throws: Error information, if an error occurred.
-/// - Returns: returns  true if the user allows access to contacts
-@available(macOS 12.0.0, iOS 15.0.0, *)
-public func requestAccess() async throws -> Bool {
-    return try await ContactStore.default.requestAccess(for: .contacts)
-}
+    /// Requests access to the user's contacts.
+    /// - Throws: Error information, if an error occurred.
+    /// - Returns: returns  true if the user allows access to contacts
+    @available(macOS 12.0.0, iOS 15.0.0, *)
+    public func requestAccess() async throws -> Bool {
+        return try await ContactStore.default.requestAccess(for: .contacts)
+    }
 #endif
 
 /// Indicates the current authorization status to access contact data.
@@ -42,30 +42,30 @@ public func authorizationStatus() -> CNAuthorizationStatus {
 }
 
 #if compiler(>=5.5) && canImport(_Concurrency)
-/// Fetch all contacts from device
-/// - Parameters:
-///   - keysToFetch: The contact fetch request that specifies the search criteria.
-///   - order: The sort order for contacts.
-///   - unifyResults: A Boolean value that indicates whether to return linked contacts as unified contacts.
-/// - Throws: Error information, if an error occurred.
-/// - Returns: array of contacts
-@available(macOS 12.0.0, iOS 15.0.0, *)
-public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder = .none, unifyResults: Bool = true) async throws -> [CNContact] {
-    return try await withCheckedThrowingContinuation { continuation in
-        do {
-            var contacts: [CNContact] = []
-            let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
-            fetchRequest.unifyResults = unifyResults
-            fetchRequest.sortOrder = order
-            try ContactStore.default.enumerateContacts(with: fetchRequest) { contact, _ in
-                contacts.append(contact)
+    /// Fetch all contacts from device
+    /// - Parameters:
+    ///   - keysToFetch: The contact fetch request that specifies the search criteria.
+    ///   - order: The sort order for contacts.
+    ///   - unifyResults: A Boolean value that indicates whether to return linked contacts as unified contacts.
+    /// - Throws: Error information, if an error occurred.
+    /// - Returns: array of contacts
+    @available(macOS 12.0.0, iOS 15.0.0, *)
+    public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder = .none, unifyResults: Bool = true) async throws -> [CNContact] {
+        return try await withCheckedThrowingContinuation { continuation in
+            do {
+                var contacts: [CNContact] = []
+                let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
+                fetchRequest.unifyResults = unifyResults
+                fetchRequest.sortOrder = order
+                try ContactStore.default.enumerateContacts(with: fetchRequest) { contact, _ in
+                    contacts.append(contact)
+                }
+                continuation.resume(returning: contacts)
+            } catch {
+                continuation.resume(throwing: error)
             }
-            continuation.resume(returning: contacts)
-        } catch {
-            continuation.resume(throwing: error)
         }
     }
-}
 #endif
 
 /// fetch contacts matching a conditions.

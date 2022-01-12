@@ -4,14 +4,14 @@ import XCTest
 @available(macOS 12.0.0, *)
 final class SwiftyContactsTests: XCTestCase {
     #if compiler(>=5.5) && canImport(_Concurrency)
-    func testRequestAccess() async {
-        do {
-            let bool = try await requestAccess()
-            XCTAssertEqual(bool, true)
-        } catch {
-            XCTFail(error.localizedDescription)
+        func testRequestAccess() async {
+            do {
+                let bool = try await requestAccess()
+                XCTAssertEqual(bool, true)
+            } catch {
+                XCTFail(error.localizedDescription)
+            }
         }
-    }
     #endif
 
     func testAuthorizationStatus() {
@@ -38,16 +38,16 @@ final class SwiftyContactsTests: XCTestCase {
             }
         }
     }
-    
+
     #if compiler(>=5.5) && canImport(_Concurrency)
-    func testFetchContacts() async {
-        do {
-            let contacts = try await fetchContacts()
-            XCTAssertEqual(contacts.count >= 0, true)
-        } catch {
-            XCTFail(error.localizedDescription)
+        func testFetchContacts() async {
+            do {
+                let contacts = try await fetchContacts()
+                XCTAssertEqual(contacts.count >= 0, true)
+            } catch {
+                XCTFail(error.localizedDescription)
+            }
         }
-    }
     #endif
 
     func testFetchContactsClosures() {
