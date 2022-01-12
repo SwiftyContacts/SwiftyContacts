@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/SwiftyContacts/SwiftyContacts/tree/HEAD)
+
+[Full Changelog](https://github.com/SwiftyContacts/SwiftyContacts/compare/4.0.1...HEAD)
+
+**Merged pull requests:**
+
+- Fix compiling on Xcode 12.X [\#31](https://github.com/SwiftyContacts/SwiftyContacts/pull/31) ([alex-taffe](https://github.com/alex-taffe))
+
 ## [4.0.1](https://github.com/SwiftyContacts/SwiftyContacts/tree/4.0.1) (2021-12-18)
 
 [Full Changelog](https://github.com/SwiftyContacts/SwiftyContacts/compare/4.0.0...4.0.1)
