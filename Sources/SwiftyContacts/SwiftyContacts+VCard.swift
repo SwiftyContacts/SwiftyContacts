@@ -1,3 +1,4 @@
+//
 //    Copyright (c) 2022 Satish Babariya <satish.babariya@gmail.com>
 //
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,21 +18,32 @@
 //    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
+//
 
 @_exported import Contacts
 
-/// Returns the vCard representation of the specified contacts.
-/// - Parameter contacts: An array of contacts.
-/// - Throws: Contains error information.
-/// - Returns: An NSData object with the vCard representation of the contact.
-public func encode(contacts: [CNContact]) throws -> Data {
-    return try CNContactVCardSerialization.data(with: contacts)
-}
-
-/// Returns the contacts from the vCard data.
-/// - Parameter data: The vCard data representing one or more contacts.
-/// - Throws: Error information.
-/// - Returns: An array of contacts.
-public func decode(data: Data) throws -> [CNContact] {
-    return try CNContactVCardSerialization.contacts(with: data)
+/// Helper actor to encode and decode `CNContacts` as *vCard* objects.
+/// 
+public actor ContactCoder {
+    
+    /// Returns the vCard representation of the specified contacts.
+    ///
+    /// - parameter contacts: An array of contacts.
+    /// - throws: Contains error information.
+    /// - returns: An NSData object with the vCard representation of the contact.
+    ///
+    public static func encode(contacts: [CNContact]) throws -> Data {
+        return try CNContactVCardSerialization.data(with: contacts)
+    }
+    
+    /// Returns the contacts from the vCard data.
+    ///
+    /// - parameter data: The vCard data representing one or more contacts.
+    /// - throws: Error information.
+    /// - returns: An array of contacts.
+    ///
+    public static func decode(data: Data) throws -> [CNContact] {
+        return try CNContactVCardSerialization.contacts(with: data)
+    }
+    
 }
