@@ -24,7 +24,8 @@
 /// - Parameter completion: A completion handler that returns either a success or a failure.
 ///   - On success: Returns `true` if the user allows access to contacts.
 ///   - On error: Returns error information if an error occurred.
-public func requestAccess(_ completion: @escaping (Result<Bool, Error>) -> Void) {
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
+public func requestAccess(_ completion: @escaping @Sendable (Result<Bool, Error>) -> Void) {
     if let store = ContactStore.default as? CNContactStore {
         store.requestAccess(for: .contacts) { bool, error in
             if let error = error {
@@ -35,7 +36,7 @@ public func requestAccess(_ completion: @escaping (Result<Bool, Error>) -> Void)
         }
     } else {
         // For mocks or other protocol conformers, we use the async version internally
-        Task {
+        Task { @MainActor in
             do {
                 let status = try await ContactStore.default.requestAccess(for: .contacts)
                 completion(.success(status))
@@ -58,7 +59,7 @@ public func fetchContacts(
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
     order: CNContactSortOrder = .none,
     unifyResults: Bool = true,
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
@@ -102,7 +103,7 @@ private final class NSLockingArray<Element>: @unchecked Sendable {
 public func fetchContacts(
     predicate: NSPredicate,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)))
@@ -121,7 +122,7 @@ public func fetchContacts(
 public func fetchContacts(
     matchingName name: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingName: name), keysToFetch: keysToFetch)))
@@ -140,7 +141,7 @@ public func fetchContacts(
 public func fetchContacts(
     matchingEmailAddress emailAddress: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingEmailAddress: emailAddress), keysToFetch: keysToFetch)))
@@ -159,7 +160,7 @@ public func fetchContacts(
 public func fetchContacts(
     matching phoneNumber: CNPhoneNumber,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matching: phoneNumber), keysToFetch: keysToFetch)))
@@ -178,7 +179,7 @@ public func fetchContacts(
 public func fetchContacts(
     withIdentifiers identifiers: [String],
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(withIdentifiers: identifiers), keysToFetch: keysToFetch)))
@@ -197,7 +198,7 @@ public func fetchContacts(
 public func fetchContacts(
     withGroupIdentifier groupIdentifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInGroup(withIdentifier: groupIdentifier), keysToFetch: keysToFetch)))
@@ -216,7 +217,7 @@ public func fetchContacts(
 public func fetchContacts(
     withContainerIdentifier containerIdentifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInContainer(withIdentifier: containerIdentifier), keysToFetch: keysToFetch)))
@@ -235,7 +236,7 @@ public func fetchContacts(
 public func fetchContact(
     withIdentifier identifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<CNContact, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<CNContact, Error>) -> Void
 ) {
     do {
         completion(.success(try ContactStore.default.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)))
@@ -254,7 +255,7 @@ public func fetchContact(
 public func addContact(
     _ contact: CNMutableContact,
     toContainerWithIdentifier identifier: String? = nil,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -274,7 +275,7 @@ public func addContact(
 ///     - On error: Returns error information if an error occurred.
 public func updateContact(
     _ contact: CNMutableContact,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -294,7 +295,7 @@ public func updateContact(
 ///     - On error: Returns error information if an error occurred.
 public func deleteContact(
     _ contact: CNMutableContact,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -314,7 +315,7 @@ public func deleteContact(
 ///     - On error: Returns error information if an error occurred.
 public func fetchGroups(
     matching predicate: NSPredicate? = nil,
-    _ completion: @escaping (Result<[CNGroup], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNGroup], Error>) -> Void
 ) {
     do {
         let groups = try ContactStore.default.groups(matching: predicate)
@@ -334,7 +335,7 @@ public func fetchGroups(
 public func addGroup(
     _ name: String,
     toContainerWithIdentifier identifier: String? = nil,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -356,7 +357,7 @@ public func addGroup(
 ///     - On error: Returns error information if an error occurred.
 public func updateGroup(
     _ group: CNMutableGroup,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -376,7 +377,7 @@ public func updateGroup(
 ///     - On error: Returns error information if an error occurred.
 public func deleteGroup(
     _ group: CNMutableGroup,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -398,7 +399,7 @@ public func deleteGroup(
 public func fetchContacts(
     in group: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
-    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+    _ completion: @escaping @Sendable (Result<[CNContact], Error>) -> Void
 ) {
     do {
         let contacts = try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: group), keysToFetch: keysToFetch)
@@ -418,7 +419,7 @@ public func fetchContacts(
 public func addContact(
     _ contact: CNContact,
     to group: CNGroup,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()
@@ -440,7 +441,7 @@ public func addContact(
 public func removeContact(
     _ contact: CNContact,
     from group: CNGroup,
-    _ completion: @escaping (Result<Bool, Error>) -> Void
+    _ completion: @escaping @Sendable (Result<Bool, Error>) -> Void
 ) {
     do {
         let request = CNSaveRequest()

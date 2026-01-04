@@ -1,0 +1,46 @@
+# SwiftLint Configuration for SwiftyContacts
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+  - function_body_length
+
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - missing_docs
+  - redundant_type_annotation
+
+excluded:
+  - Carthage
+  - Pods
+  - .build
+  - DerivedData
+
+line_length:
+  warning: 150
+  error: 200
+
+function_body_length:
+  warning: 50
+  error: 100
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 400
+  error: 800
+
+cyclomatic_complexity:
+  warning: 10
+  error: 15
+
+custom_rules:
+  no_print:
+    name: "No Print Statements"
+    regex: 'print\('
+    message: "Prefer using proper logging over print statements"
+    severity: warning

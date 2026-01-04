@@ -21,6 +21,15 @@
 @_exported import Contacts
 import Foundation
 
+// MARK: - Sendable Conformances
+extension CNContact: @retroactive @unchecked Sendable {}
+extension CNGroup: @retroactive @unchecked Sendable {}
+extension CNMutableContact: @retroactive @unchecked Sendable {}
+extension CNMutableGroup: @retroactive @unchecked Sendable {}
+extension CNContactFetchRequest: @retroactive @unchecked Sendable {}
+extension CNSaveRequest: @retroactive @unchecked Sendable {}
+extension NSPredicate: @retroactive @unchecked Sendable {}
+
 /// Protocol defining the interface for a contact store, allowing for mocking in tests.
 public protocol ContactStoreProtocol: Sendable {
     func requestAccess(for entityType: CNEntityType) async throws -> Bool
@@ -35,10 +44,10 @@ public protocol ContactStoreProtocol: Sendable {
 extension CNContactStore: ContactStoreProtocol {}
 
 /// A thread-safe contact store wrapper using an actor for modern Swift concurrency.
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 actor ContactStoreActor {
     private let store: ContactStoreProtocol
-    static var shared = ContactStoreActor()
+    static let shared = ContactStoreActor()
     
     init(store: ContactStoreProtocol = CNContactStore()) {
         self.store = store
@@ -48,44 +57,40 @@ actor ContactStoreActor {
         return try await store.requestAccess(for: entityType)
     }
     
-    func authorizationStatus(for entityType: CNEntityType) -> CNAuthorizationStatus {
+    nonisolated func authorizationStatus(for entityType: CNEntityType) -> CNAuthorizationStatus {
         return CNContactStore.authorizationStatus(for: entityType)
     }
     
     func enumerateContacts(with request: CNContactFetchRequest) throws -> [CNContact] {
-        var contacts: [CNContact] = []
-        try store.enumerateContacts(with: request) { contact, _ in
-            contacts.append(contact)
-        }
-        return contacts
+        return try store.unifiedContacts(matching: NSPredicate(value: true), keysToFetch: request.keysToFetch)
     }
     
-    func unifiedContacts(matching predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]) throws -> [CNContact] {
+    nonisolated func unifiedContacts(matching predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]) throws -> [CNContact] {
         return try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
     }
     
-    func unifiedContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor]) throws -> CNContact {
+    nonisolated func unifiedContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor]) throws -> CNContact {
         return try store.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)
     }
     
-    func execute(_ saveRequest: CNSaveRequest) throws {
+    nonisolated func execute(_ saveRequest: CNSaveRequest) throws {
         try store.execute(saveRequest)
     }
     
-    func groups(matching predicate: NSPredicate?) throws -> [CNGroup] {
+    nonisolated func groups(matching predicate: NSPredicate?) throws -> [CNGroup] {
         return try store.groups(matching: predicate)
     }
 }
 
 // Internal instance for backward compatibility and synchronous operations
 public enum ContactStore {
-    public static var `default`: ContactStoreProtocol = CNContactStore()
+    public static let `default`: ContactStoreProtocol = CNContactStore()
 }
 
 /// Requests access to the user's contacts.
 /// - Returns: `true` if the user allows access to contacts
 /// - Throws: An error if access cannot be requested
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func requestAccess() async throws -> Bool {
     return try await ContactStoreActor.shared.requestAccess(for: .contacts)
 }
@@ -103,7 +108,7 @@ public func authorizationStatus() -> CNAuthorizationStatus {
 ///   - unifyResults: A Boolean value that indicates whether to return linked contacts as unified contacts.
 /// - Returns: An array of contacts
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
     order: CNContactSortOrder = .none,
@@ -122,7 +127,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts matching the predicate
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     predicate: NSPredicate,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -150,7 +155,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts matching the name
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     matchingName name: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -183,7 +188,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts matching the email address
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     matchingEmailAddress emailAddress: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -216,7 +221,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts matching the phone number
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     matching phoneNumber: CNPhoneNumber,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -249,7 +254,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts matching the identifiers
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     withIdentifiers identifiers: [String],
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -282,7 +287,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts in the specified group
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     withGroupIdentifier groupIdentifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -315,7 +320,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts in the specified container
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     withContainerIdentifier containerIdentifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -348,7 +353,7 @@ public func fetchContacts(
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: Contact matching or linked to the identifier
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContact(
     withIdentifier identifier: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -375,7 +380,7 @@ public func fetchContact(
 ///   - contact: The new contact to add.
 ///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func addContact(
     _ contact: CNMutableContact,
     toContainerWithIdentifier identifier: String? = nil
@@ -405,7 +410,7 @@ public func addContact(
 ///   - contact: The new contact to add.
 ///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func addContact(
     _ contact: CNContact,
     toContainerWithIdentifier identifier: String? = nil
@@ -434,7 +439,7 @@ public func addContact(
 /// Updates an existing contact in the contact store.
 /// - Parameter contact: The contact to update.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func updateContact(_ contact: CNMutableContact) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
@@ -454,7 +459,7 @@ public func updateContact(_ contact: CNMutableContact) throws {
 /// Updates an existing contact in the contact store.
 /// - Parameter contact: The contact to update.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func updateContact(_ contact: CNContact) async throws {
     guard let mutableContact = contact.mutableCopy() as? CNMutableContact else {
         throw NSError(domain: "SwiftyContacts", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create mutable contact"])
@@ -475,7 +480,7 @@ public func updateContact(_ contact: CNContact) throws {
 /// Deletes a contact from the contact store.
 /// - Parameter contact: Contact to be deleted.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func deleteContact(_ contact: CNMutableContact) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
@@ -495,7 +500,7 @@ public func deleteContact(_ contact: CNMutableContact) throws {
 /// Deletes a contact from the contact store.
 /// - Parameter contact: Contact to be deleted.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func deleteContact(_ contact: CNContact) async throws {
     guard let mutableContact = contact.mutableCopy() as? CNMutableContact else {
         throw NSError(domain: "SwiftyContacts", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create mutable contact"])
@@ -517,7 +522,7 @@ public func deleteContact(_ contact: CNContact) throws {
 /// - Parameter predicate: The predicate to use to fetch the matching groups. Set predicate to nil to match all groups.
 /// - Returns: An array of CNGroup objects that match the predicate.
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchGroups(matching predicate: NSPredicate? = nil) async throws -> [CNGroup] {
     let actor = ContactStoreActor.shared
     return try await actor.groups(matching: predicate)
@@ -536,7 +541,7 @@ public func fetchGroups(matching predicate: NSPredicate? = nil) throws -> [CNGro
 ///   - name: The new group to add.
 ///   - identifier: The container identifier to add the new group to. Set to nil for the default container.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func addGroup(
     _ name: String,
     toContainerWithIdentifier identifier: String? = nil
@@ -568,7 +573,7 @@ public func addGroup(
 /// Updates an existing group in the contact store.
 /// - Parameter group: The group to update.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func updateGroup(_ group: CNMutableGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
@@ -588,7 +593,7 @@ public func updateGroup(_ group: CNMutableGroup) throws {
 /// Updates an existing group in the contact store.
 /// - Parameter group: The group to update.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func updateGroup(_ group: CNGroup) async throws {
     guard let mutableGroup = group.mutableCopy() as? CNMutableGroup else {
         throw NSError(domain: "SwiftyContacts", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create mutable group"])
@@ -609,7 +614,7 @@ public func updateGroup(_ group: CNGroup) throws {
 /// Deletes a group from the contact store.
 /// - Parameter group: The group to delete.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func deleteGroup(_ group: CNMutableGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
@@ -629,7 +634,7 @@ public func deleteGroup(_ group: CNMutableGroup) throws {
 /// Deletes a group from the contact store.
 /// - Parameter group: The group to delete.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func deleteGroup(_ group: CNGroup) async throws {
     guard let mutableGroup = group.mutableCopy() as? CNMutableGroup else {
         throw NSError(domain: "SwiftyContacts", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create mutable group"])
@@ -653,7 +658,7 @@ public func deleteGroup(_ group: CNGroup) throws {
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 /// - Returns: An array of contacts in the specified group
 /// - Throws: An error if the fetch operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchContacts(
     in group: String,
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
@@ -685,7 +690,7 @@ public func fetchContacts(
 ///   - contact: The new member to add to the group.
 ///   - group: The group to add the member to.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func addContact(_ contact: CNContact, to group: CNGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
@@ -709,7 +714,7 @@ public func addContact(_ contact: CNContact, to group: CNGroup) throws {
 ///   - contact: The contact to remove from the group membership.
 ///   - group: The group to remove the contact from its membership.
 /// - Throws: An error if the operation fails
-@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
+@available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func removeContact(_ contact: CNContact, from group: CNGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()

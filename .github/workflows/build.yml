@@ -1,18 +1,50 @@
-name: Swift
+name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main, master]
   pull_request:
-    branches: [master]
+    branches: [main, master]
 
 jobs:
   build:
-    runs-on: macos-latest
-
+    runs-on: macos-14
+    
+    strategy:
+      matrix:
+        xcode: ['15.4', '15.3']
+    
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+        
+      - name: Cache Swift Package Manager
+        uses: actions/cache@v4
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+      
       - name: Build
         run: swift build -v
-    # - name: Run tests
-    #   run: swift test -v
+        
+      - name: Run tests
+        run: swift test -v --enable-code-coverage
+        
+      - name: Generate documentation
+        run: |
+          if command -v xcodebuild &> /dev/null; then
+            xcodebuild docbuild -scheme SwiftyContacts -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'
+          fi
+        
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: .build/debug/codecov/*.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
