@@ -19,19 +19,20 @@
 //    THE SOFTWARE.
 
 @_exported import Contacts
+import Foundation
 
 /// Returns the vCard representation of the specified contacts.
-/// - Parameter contacts: An array of contacts.
-/// - Throws: Contains error information.
-/// - Returns: An NSData object with the vCard representation of the contact.
+/// - Parameter contacts: An array of contacts to encode.
+/// - Returns: A Data object with the vCard representation of the contacts.
+/// - Throws: An error if encoding fails.
 public func encode(contacts: [CNContact]) throws -> Data {
     return try CNContactVCardSerialization.data(with: contacts)
 }
 
 /// Returns the contacts from the vCard data.
 /// - Parameter data: The vCard data representing one or more contacts.
-/// - Throws: Error information.
-/// - Returns: An array of contacts.
+/// - Returns: An array of contacts decoded from the vCard data.
+/// - Throws: An error if decoding fails.
 public func decode(data: Data) throws -> [CNContact] {
     return try CNContactVCardSerialization.contacts(with: data)
 }

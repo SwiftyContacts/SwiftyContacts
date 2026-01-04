@@ -1,24 +1,21 @@
 # SwiftyContacts
 
-[![Language: Swift 6.0](https://img.shields.io/badge/language-Swift%206.0-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
-[![Version](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
-[![License](https://img.shields.io/cocoapods/l/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
-[![Platform](https://img.shields.io/badge/platforms-iOS%2016.0+%20%7C%20macOS%2013.0+%20%7C%20watchOS%209.0+%20%7C%20tvOS%2016.0+%20%7C%20visionOS%201.0+-333333.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
-[![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg?style=flat-square)](https://github.com/apple/swift-package-manager)
-[![CocoaPods compatible](https://img.shields.io/badge/cocoapods-v6.0+-brightgreen.svg?style=flat-square)](https://cocoapods.org/pods/SwiftyContacts)
-
 A modern Swift library for the Contacts framework with full async/await support, type-safe APIs, and comprehensive contact management capabilities.
+
+## Overview
+
+SwiftyContacts provides a modern, type-safe, and concurrent interface to Apple's Contacts framework. It leverages Swift 6 features including actors for thread safety, async/await for modern concurrency, and comprehensive error handling.
 
 ## Features
 
-- ✅ **Modern Swift Concurrency**: Full async/await support with Swift 6.0+
-- ✅ **Thread-Safe**: Actor-based implementation for safe concurrent access
-- ✅ **Dual API Support**: Both async/await and closure-based APIs for maximum flexibility
-- ✅ **Type-Safe**: Strongly typed APIs with comprehensive error handling
-- ✅ **Cross-Platform**: Support for iOS, macOS, watchOS, tvOS, and visionOS
-- ✅ **Comprehensive**: Full CRUD operations for contacts and groups
-- ✅ **vCard Support**: Encode and decode contacts to/from vCard format
-- ✅ **Backward Compatible**: Maintains compatibility with existing code
+- **Modern Swift Concurrency**: Full async/await support with Swift 6+
+- **Thread-Safe**: Actor-based implementation for safe concurrent access
+- **Dual API Support**: Both async/await and closure-based APIs for maximum flexibility
+- **Type-Safe**: Strongly typed APIs with comprehensive error handling
+- **Cross-Platform**: Support for iOS, macOS, watchOS, tvOS, and visionOS
+- **Comprehensive**: Full CRUD operations for contacts and groups
+- **vCard Support**: Encode and decode contacts to/from vCard format
+- **Backward Compatible**: Maintains compatibility with existing code
 
 ## Requirements
 
@@ -175,40 +172,40 @@ let decodedContacts = try decode(data: vCardData)
 
 ### Authorization
 
-- `requestAccess() async throws -> Bool` - Request access to contacts
-- `authorizationStatus() -> CNAuthorizationStatus` - Get current authorization status
+- ``requestAccess()`` - Request access to contacts
+- ``authorizationStatus()`` - Get current authorization status
 
 ### Fetching Contacts
 
-- `fetchContacts(keysToFetch:order:unifyResults:) async throws -> [CNContact]` - Fetch all contacts
-- `fetchContact(withIdentifier:keysToFetch:) async throws -> CNContact` - Fetch a single contact
-- `fetchContacts(matchingName:keysToFetch:) async throws -> [CNContact]` - Search by name
-- `fetchContacts(matchingEmailAddress:keysToFetch:) async throws -> [CNContact]` - Search by email
-- `fetchContacts(matching:keysToFetch:) async throws -> [CNContact]` - Search by phone number
-- `fetchContacts(withIdentifiers:keysToFetch:) async throws -> [CNContact]` - Fetch by identifiers
-- `fetchContacts(withGroupIdentifier:keysToFetch:) async throws -> [CNContact]` - Fetch by group
-- `fetchContacts(withContainerIdentifier:keysToFetch:) async throws -> [CNContact]` - Fetch by container
-- `fetchContacts(in:keysToFetch:) async throws -> [CNContact]` - Fetch contacts in a group
+- ``fetchContacts(keysToFetch:order:unifyResults:)`` - Fetch all contacts
+- ``fetchContact(withIdentifier:keysToFetch:)`` - Fetch a single contact
+- ``fetchContacts(matchingName:keysToFetch:)`` - Search by name
+- ``fetchContacts(matchingEmailAddress:keysToFetch:)`` - Search by email
+- ``fetchContacts(matching:keysToFetch:)`` - Search by phone number
+- ``fetchContacts(withIdentifiers:keysToFetch:)`` - Fetch by identifiers
+- ``fetchContacts(withGroupIdentifier:keysToFetch:)`` - Fetch by group
+- ``fetchContacts(withContainerIdentifier:keysToFetch:)`` - Fetch by container
+- ``fetchContacts(in:keysToFetch:)`` - Fetch contacts in a group
 
 ### Managing Contacts
 
-- `addContact(_:toContainerWithIdentifier:) async throws` - Add a contact
-- `updateContact(_:) async throws` - Update a contact
-- `deleteContact(_:) async throws` - Delete a contact
+- ``addContact(_:toContainerWithIdentifier:)`` - Add a contact
+- ``updateContact(_:)`` - Update a contact
+- ``deleteContact(_:)`` - Delete a contact
 
 ### Managing Groups
 
-- `fetchGroups(matching:) async throws -> [CNGroup]` - Fetch groups
-- `addGroup(_:toContainerWithIdentifier:) async throws` - Add a group
-- `updateGroup(_:) async throws` - Update a group
-- `deleteGroup(_:) async throws` - Delete a group
-- `addContact(_:to:) async throws` - Add contact to group
-- `removeContact(_:from:) async throws` - Remove contact from group
+- ``fetchGroups(matching:)`` - Fetch groups
+- ``addGroup(_:toContainerWithIdentifier:)`` - Add a group
+- ``updateGroup(_:)`` - Update a group
+- ``deleteGroup(_:)`` - Delete a group
+- ``addContact(_:to:)`` - Add contact to group
+- ``removeContact(_:from:)`` - Remove contact from group
 
 ### vCard
 
-- `encode(contacts:) throws -> Data` - Encode contacts to vCard
-- `decode(data:) throws -> [CNContact]` - Decode vCard to contacts
+- ``encode(contacts:)`` - Encode contacts to vCard
+- ``decode(data:)`` - Decode vCard to contacts
 
 All methods also have synchronous versions for backward compatibility and closure-based versions in `SwiftyContacts+Closures.swift`.
 
@@ -220,24 +217,14 @@ SwiftyContacts v6.0 introduces breaking changes:
 
 1. **Platform Requirements**: Minimum iOS 16.0, macOS 13.0, watchOS 9.0, tvOS 16.0, visionOS 1.0
 2. **Swift Version**: Requires Swift 6.0+
-3. **Concurrency**: Improved actor-based isolation with Sendable conformance for Contacts framework types
+3. **Concurrency**: Improved actor-based isolation and Sendable conformance
 4. **Vision OS Support**: Added support for Apple Vision Pro
-5. **Performance**: Enhanced thread safety and concurrency model
 
 The synchronous and closure-based APIs remain available for backward compatibility.
 
-### From v4.x to v5.x
-
-SwiftyContacts v5.0 introduced:
-
-1. **Platform Requirements**: Minimum iOS 15.0, macOS 12.0, watchOS 8.0, tvOS 15.0
-2. **Swift Version**: Required Swift 5.9+
-3. **Async/Await**: All async methods used `@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)`
-4. **Method Naming**: `deleteContact(_:from:)` became `removeContact(_:from:)`
-
 ## Thread Safety
 
-SwiftyContacts uses Swift 6 actors to ensure thread-safe access to the Contacts framework. All async operations are automatically serialized, preventing race conditions and ensuring data consistency. The library provides `@unchecked Sendable` conformance for Contacts framework types to ensure compatibility with Swift 6's strict concurrency model.
+SwiftyContacts uses Swift actors to ensure thread-safe access to the Contacts framework. All async operations are automatically serialized, preventing race conditions and ensuring data consistency.
 
 ## Error Handling
 
