@@ -20,10 +20,10 @@
 
 @_exported import Contacts
 
-/// Requests access to the user's contacts.
-/// - Parameter completion: returns either a success or a failure,
-/// on sucess: returns true if the user allows access to contacts
-/// on error: error information, if an error occurred.
+/// Requests access to the user's contacts (closure-based API for backward compatibility).
+/// - Parameter completion: A completion handler that returns either a success or a failure.
+///   - On success: Returns `true` if the user allows access to contacts.
+///   - On error: Returns error information if an error occurred.
 public func requestAccess(_ completion: @escaping (Result<Bool, Error>) -> Void) {
     ContactStore.default.requestAccess(for: .contacts) { bool, error in
         if let error = error {
@@ -34,16 +34,20 @@ public func requestAccess(_ completion: @escaping (Result<Bool, Error>) -> Void)
     }
 }
 
-/// Fetch all contacts from device
+/// Fetch all contacts from device (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
 ///   - order: The sort order for contacts.
 ///   - unifyResults: A Boolean value that indicates whether to return linked contacts as unified contacts.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-///
-public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], order: CNContactSortOrder = .none, unifyResults: Bool = true, _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    order: CNContactSortOrder = .none,
+    unifyResults: Bool = true,
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         var contacts: [CNContact] = []
         let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
@@ -58,14 +62,18 @@ public func fetchContacts(keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerial
     }
 }
 
-/// fetch contacts matching a conditions.
+/// Fetch contacts matching a predicate (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - predicate: A definition of logical conditions for constraining a search for a fetch or for in-memory filtering.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    predicate: NSPredicate,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)))
     } catch {
@@ -73,14 +81,18 @@ public func fetchContacts(predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]
     }
 }
 
-/// fetch contacts matching a name.
+/// Fetch contacts matching a name (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - name: The name can contain any number of words.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(matchingName name: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    matchingName name: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingName: name), keysToFetch: keysToFetch)))
     } catch {
@@ -88,14 +100,18 @@ public func fetchContacts(matchingName name: String, keysToFetch: [CNKeyDescript
     }
 }
 
-/// Fetch contacts matching an email address.
+/// Fetch contacts matching an email address (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - emailAddress: The email address to search for. Do not include a scheme (e.g., "mailto:").
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(matchingEmailAddress emailAddress: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    matchingEmailAddress emailAddress: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matchingEmailAddress: emailAddress), keysToFetch: keysToFetch)))
     } catch {
@@ -103,14 +119,18 @@ public func fetchContacts(matchingEmailAddress emailAddress: String, keysToFetch
     }
 }
 
-/// Fetch contacts matching a phone number.
+/// Fetch contacts matching a phone number (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - phoneNumber: A CNPhoneNumber representing the phone number to search for. Do not include a scheme (e.g., "tel:").
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(matching phoneNumber: CNPhoneNumber, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    matching phoneNumber: CNPhoneNumber,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(matching: phoneNumber), keysToFetch: keysToFetch)))
     } catch {
@@ -118,14 +138,18 @@ public func fetchContacts(matching phoneNumber: CNPhoneNumber, keysToFetch: [CNK
     }
 }
 
-/// To fetch contacts matching contact identifiers.
+/// Fetch contacts matching contact identifiers (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - identifiers: Contact identifiers to be matched.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(withIdentifiers identifiers: [String], keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    withIdentifiers identifiers: [String],
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContacts(withIdentifiers: identifiers), keysToFetch: keysToFetch)))
     } catch {
@@ -133,14 +157,18 @@ public func fetchContacts(withIdentifiers identifiers: [String], keysToFetch: [C
     }
 }
 
-/// To fetch contacts matching group identifier
+/// Fetch contacts matching a group identifier (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - groupIdentifier: The group identifier to be matched.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(withGroupIdentifier groupIdentifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    withGroupIdentifier groupIdentifier: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInGroup(withIdentifier: groupIdentifier), keysToFetch: keysToFetch)))
     } catch {
@@ -148,14 +176,18 @@ public func fetchContacts(withGroupIdentifier groupIdentifier: String, keysToFet
     }
 }
 
-/// find the contacts in the specified container.
+/// Find the contacts in the specified container (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - containerIdentifier: The container identifier to be matched.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: returns array of contacts
-/// on error: error information, if an error occurred.
-public func fetchContacts(withContainerIdentifier containerIdentifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    withContainerIdentifier containerIdentifier: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContacts(matching: CNContact.predicateForContactsInContainer(withIdentifier: containerIdentifier), keysToFetch: keysToFetch)))
     } catch {
@@ -163,14 +195,18 @@ public func fetchContacts(withContainerIdentifier containerIdentifier: String, k
     }
 }
 
-/// Fetch a  contact with a given identifier.
+/// Fetch a contact with a given identifier (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - identifier: The identifier of the contact to fetch.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-/// - Returns: returns either a success or a failure,
-/// on sucess: contact matching or linked to the identifier
-/// on error: error information, if an error occurred.
-public func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<CNContact, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns the contact matching or linked to the identifier.
+///     - On error: Returns error information if an error occurred.
+public func fetchContact(
+    withIdentifier identifier: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<CNContact, Error>) -> Void
+) {
     do {
         completion(.success(try ContactStore.default.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)))
     } catch {
@@ -178,14 +214,18 @@ public func fetchContact(withIdentifier identifier: String, keysToFetch: [CNKeyD
     }
 }
 
-/// Adds the specified contact to the contact store.
+/// Adds the specified contact to the contact store (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - contact: The new contact to add.
 ///   - identifier: The container identifier to add the new contact to. Set to nil for the default container.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier identifier: String? = nil, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func addContact(
+    _ contact: CNMutableContact,
+    toContainerWithIdentifier identifier: String? = nil,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.add(contact, toContainerWithIdentifier: identifier)
@@ -196,13 +236,16 @@ public func addContact(_ contact: CNMutableContact, toContainerWithIdentifier id
     }
 }
 
-/// Updates an existing contact in the contact store.
+/// Updates an existing contact in the contact store (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - contact: The contact to update.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func updateContact(_ contact: CNMutableContact, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func updateContact(
+    _ contact: CNMutableContact,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.update(contact)
@@ -213,13 +256,16 @@ public func updateContact(_ contact: CNMutableContact, _ completion: @escaping (
     }
 }
 
-/// Deletes a contact from the contact store.
+/// Deletes a contact from the contact store (closure-based API for backward compatibility).
 /// - Parameters:
-///   - contact: Contact to be delete.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func deleteContact(_ contact: CNMutableContact, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - contact: Contact to be deleted.
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func deleteContact(
+    _ contact: CNMutableContact,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.delete(contact)
@@ -230,13 +276,16 @@ public func deleteContact(_ contact: CNMutableContact, _ completion: @escaping (
     }
 }
 
-/// Fetches all groups matching the specified predicate.
+/// Fetches all groups matching the specified predicate (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - predicate: The predicate to use to fetch the matching groups. Set predicate to nil to match all groups.
-///   - completion: returns either a success or a failure,
-/// on sucess: An array of CNGroup objects that match the predicate.
-/// on error: error information, if an error occurred.
-public func fetchGroups(matching predicate: NSPredicate? = nil, _ completion: @escaping (Result<[CNGroup], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of CNGroup objects that match the predicate.
+///     - On error: Returns error information if an error occurred.
+public func fetchGroups(
+    matching predicate: NSPredicate? = nil,
+    _ completion: @escaping (Result<[CNGroup], Error>) -> Void
+) {
     do {
         let groups = try ContactStore.default.groups(matching: predicate)
         completion(.success(groups))
@@ -245,14 +294,18 @@ public func fetchGroups(matching predicate: NSPredicate? = nil, _ completion: @e
     }
 }
 
-/// Adds a group to the contact store.
+/// Adds a group to the contact store (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - name: The new group to add.
 ///   - identifier: The container identifier to add the new group to. Set to nil for the default container.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func addGroup(_ name: String, toContainerWithIdentifier identifier: String? = nil, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func addGroup(
+    _ name: String,
+    toContainerWithIdentifier identifier: String? = nil,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         let group = CNMutableGroup()
@@ -265,13 +318,16 @@ public func addGroup(_ name: String, toContainerWithIdentifier identifier: Strin
     }
 }
 
-/// Updates an existing group in the contact store.
+/// Updates an existing group in the contact store (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - group: The group to update.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func updateGroup(_ group: CNMutableGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func updateGroup(
+    _ group: CNMutableGroup,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.update(group)
@@ -282,13 +338,16 @@ public func updateGroup(_ group: CNMutableGroup, _ completion: @escaping (Result
     }
 }
 
-/// Deletes a group from the contact store.
+/// Deletes a group from the contact store (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - group: The group to delete.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func deleteGroup(_ group: CNMutableGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func deleteGroup(
+    _ group: CNMutableGroup,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.delete(group)
@@ -299,14 +358,18 @@ public func deleteGroup(_ group: CNMutableGroup, _ completion: @escaping (Result
     }
 }
 
-/// find the contacts that are members in the specified group.
+/// Find the contacts that are members in the specified group (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - group: The group identifier to be matched.
 ///   - keysToFetch: The contact fetch request that specifies the search criteria.
-///   - completion: returns either a success or a failure,
-/// on sucess: Array  of contacts
-/// on error: error information, if an error occurred.
-public func fetchContact(in group: String, keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()], _ completion: @escaping (Result<[CNContact], Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns an array of contacts.
+///     - On error: Returns error information if an error occurred.
+public func fetchContacts(
+    in group: String,
+    keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()],
+    _ completion: @escaping (Result<[CNContact], Error>) -> Void
+) {
     do {
         let contacts = try fetchContacts(predicate: CNContact.predicateForContactsInGroup(withIdentifier: group), keysToFetch: keysToFetch)
         completion(.success(contacts))
@@ -315,14 +378,18 @@ public func fetchContact(in group: String, keysToFetch: [CNKeyDescriptor] = [CNC
     }
 }
 
-/// Add a new member to a group.
+/// Add a new member to a group (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - contact: The new member to add to the group.
 ///   - group: The group to add the member to.
-///   - completion: returns either a success or a failure,
-/// on sucess: returns true
-/// on error: error information, if an error occurred.
-public func addContact(_ contact: CNContact, to group: CNGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func addContact(
+    _ contact: CNContact,
+    to group: CNGroup,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.addMember(contact, to: group)
@@ -333,12 +400,18 @@ public func addContact(_ contact: CNContact, to group: CNGroup, _ completion: @e
     }
 }
 
-/// Removes a contact as a member of a group.
+/// Removes a contact as a member of a group (closure-based API for backward compatibility).
 /// - Parameters:
 ///   - contact: The contact to remove from the group membership.
 ///   - group: The group to remove the contact from its membership.
-///   - completion: Error information, if an error occurred.
-public func deleteContact(_ contact: CNContact, from group: CNGroup, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+///   - completion: A completion handler that returns either a success or a failure.
+///     - On success: Returns `true`.
+///     - On error: Returns error information if an error occurred.
+public func removeContact(
+    _ contact: CNContact,
+    from group: CNGroup,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+) {
     do {
         let request = CNSaveRequest()
         request.removeMember(contact, from: group)

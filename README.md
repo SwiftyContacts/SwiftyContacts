@@ -1,478 +1,263 @@
 # SwiftyContacts
 
-[![Language: Swift 5](https://img.shields.io/badge/language-Swift%205-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
+[![Language: Swift 5.9](https://img.shields.io/badge/language-Swift%205.9-f48041.svg?style=flat-square)](https://developer.apple.com/swift)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![License](https://img.shields.io/cocoapods/l/SwiftyContacts.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
-[![Platform](https://img.shields.io/badge/platforms-iOS%209.0+%20%7C%20macOS%2010.12+%20%7C%20watchOS%203.0+-333333.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
+[![Platform](https://img.shields.io/badge/platforms-iOS%2015.0+%20%7C%20macOS%2012.0+%20%7C%20watchOS%208.0+%20%7C%20tvOS%2015.0+-333333.svg?style=flat-square)](http://cocoapods.org/pods/SwiftyContacts)
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg?style=flat-square)](https://github.com/apple/swift-package-manager)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/SwiftyContacts.svg?style=flat-square)](https://cocoapods.org/pods/SwiftyContacts)
-[![RxSwift: Supported](https://img.shields.io/badge/RxSwift-Supported-f48041.svg?style=flat-square)](https://github.com/ReactiveX/RxSwift)
-[![Read the Docs](https://img.shields.io/readthedocs/pip.svg?style=flat-square)](https://swiftycontacts.firebaseapp.com/)
 
+A modern Swift library for the Contacts framework with full async/await support, type-safe APIs, and comprehensive contact management capabilities.
 
+## Features
 
-A Swift library for Contacts framework.
-
-- [SwiftyContacts](#swiftycontacts)
-  - [Requirements](#requirements)
-  - [Installation](#installation)
-    - [CocoaPods](#cocoapods)
-    - [Swift Package Manager](#swift-package-manager)
-  - [Get started](#get-started)
-    - [async-await](#async-await)
-      - [Requests access to the user's contacts](#requests-access-to-the-users-contacts)
-      - [Request the current authorization status](#request-the-current-authorization-status)
-      - [Fetch all contacts from device](#fetch-all-contacts-from-device)
-      - [Fetch contacts matching a name.](#fetch-contacts-matching-a-name)
-      - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address)
-      - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number)
-      - [To fetch contacts matching contact identifiers.](#to-fetch-contacts-matching-contact-identifiers)
-      - [To fetch contacts matching group identifier](#to-fetch-contacts-matching-group-identifier)
-      - [find the contacts in the specified container.](#find-the-contacts-in-the-specified-container)
-      - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier)
-      - [Add contact to the contact store.](#add-contact-to-the-contact-store)
-      - [Update contact to the contact store.](#update-contact-to-the-contact-store)
-      - [Delete contact to the contact store.](#delete-contact-to-the-contact-store)
-      - [Adds a group to the contact store.](#adds-a-group-to-the-contact-store)
-      - [Fetches all groups in the contact store.](#fetches-all-groups-in-the-contact-store)
-      - [Updates an existing group in the contact store.](#updates-an-existing-group-in-the-contact-store)
-      - [Deletes a group from the contact store.](#deletes-a-group-from-the-contact-store)
-      - [Find the contacts that are members in the specified group.](#find-the-contacts-that-are-members-in-the-specified-group)
-      - [Add a new member to a group.](#add-a-new-member-to-a-group)
-      - [Removes a contact as a member of a group.](#removes-a-contact-as-a-member-of-a-group)
-    - [closures](#closures)
-      - [Requests access to the user's contacts](#requests-access-to-the-users-contacts-1)
-      - [Fetch all contacts from device](#fetch-all-contacts-from-device-1)
-      - [Fetch contacts matching a name.](#fetch-contacts-matching-a-name-1)
-      - [Fetch contacts matching an email address.](#fetch-contacts-matching-an-email-address-1)
-      - [Fetch contacts matching a phone number.](#fetch-contacts-matching-a-phone-number-1)
-      - [Fetch contacts matching contact identifiers.](#fetch-contacts-matching-contact-identifiers)
-      - [Fetch contacts matching group identifier](#fetch-contacts-matching-group-identifier)
-      - [Find the contacts in the specified container.](#find-the-contacts-in-the-specified-container-1)
-      - [Fetch a contact with a given identifier.](#fetch-a-contact-with-a-given-identifier-1)
-      - [Adds the specified contact to the contact store.](#adds-the-specified-contact-to-the-contact-store)
-      - [Updates an existing contact in the contact store.](#updates-an-existing-contact-in-the-contact-store)
-      - [Deletes a contact from the contact store.](#deletes-a-contact-from-the-contact-store)
-      - [Fetches all groups matching the specified predicate.](#fetches-all-groups-matching-the-specified-predicate)
-      - [Adds a group to the contact store.](#adds-a-group-to-the-contact-store-1)
-      - [Updates an existing group in the contact store.](#updates-an-existing-group-in-the-contact-store-1)
-      - [Deletes a group from the contact store.](#deletes-a-group-from-the-contact-store-1)
-      - [Find the contacts that are members in the specified group.](#find-the-contacts-that-are-members-in-the-specified-group-1)
-      - [Add a new member to a group.](#add-a-new-member-to-a-group-1)
-      - [Removes a contact as a member of a group.](#removes-a-contact-as-a-member-of-a-group-1)
-  - [Author](#author)
-  - [License](#license)
+- ✅ **Modern Swift Concurrency**: Full async/await support with Swift 5.9+
+- ✅ **Thread-Safe**: Actor-based implementation for safe concurrent access
+- ✅ **Dual API Support**: Both async/await and closure-based APIs for maximum flexibility
+- ✅ **Type-Safe**: Strongly typed APIs with comprehensive error handling
+- ✅ **Cross-Platform**: Support for iOS, macOS, watchOS, and tvOS
+- ✅ **Comprehensive**: Full CRUD operations for contacts and groups
+- ✅ **vCard Support**: Encode and decode contacts to/from vCard format
+- ✅ **Backward Compatible**: Maintains compatibility with existing code
 
 ## Requirements
 
-- iOS 11.0+ / Mac OS X 10.13+ /  watchOS 4.0+
-- Xcode 13.0+
+- iOS 15.0+ / macOS 12.0+ / watchOS 8.0+ / tvOS 15.0+
+- Xcode 15.0+
+- Swift 5.9+
 
 ## Installation
 
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is the recommended way to install SwiftyContacts.
+
+Add the following to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/SwiftyContacts/SwiftyContacts.git", from: "5.0.0")
+]
+```
+
+Or add it through Xcode:
+1. File → Add Packages...
+2. Enter the repository URL: `https://github.com/SwiftyContacts/SwiftyContacts.git`
+3. Select the version you want to use
+
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-To integrate SwiftyContacts into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. To integrate SwiftyContacts:
 
 ```ruby
-pod 'SwiftyContacts'
+pod 'SwiftyContacts', '~> 5.0'
 ```
 
-Then, run the following command:
-
+Then run:
 ```bash
 $ pod install
 ```
 
-### Swift Package Manager
+## Quick Start
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but SwiftyContacts does support its use on supported platforms.
-
-Once you have your Swift package set up, adding SwiftyContacts as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+### Request Access
 
 ```swift
-dependencies: [
-    .package(url: "https://github.com/SwiftyContacts/SwiftyContacts.git", .upToNextMajor(from: "4.0.0"))
-]
-```
+import SwiftyContacts
 
+// Async/await
+let hasAccess = try await requestAccess()
 
-## Get started
-
-
-### async-await
-
-#### Requests access to the user's contacts
-```swift
-let access = try await requestAccess()
-```
-
-#### Request the current authorization status
-```swift
-let status = authorizationStatus()
-print(status == CNAuthorizationStatus.authorized)
-```
-
-#### Fetch all contacts from device
-```swift
-let contacts = try await fetchContacts()
-```
-
-#### Fetch contacts matching a name.
-```swift
-let contacts = try await fetchContacts(matchingName: "Satish Babariya")
-```
-
-
-#### Fetch contacts matching an email address.
-```swift
-let contacts = try await fetchContacts(matchingEmailAddress: "satish.babariya@gmail.com")
-```
-
-#### Fetch contacts matching a phone number.
-```swift
-let contacts = try await fetchContacts(matching: CNPhoneNumber(stringValue: "+919426678969"))
-```
-
-#### To fetch contacts matching contact identifiers.
-```swift
-let contacts = try await fetchContacts(withIdentifiers: ["id1", "id2" ... ])
-```
-
-#### To fetch contacts matching group identifier
-```swift
-let contacts = try await fetchContacts(withGroupIdentifier: "")
-```
-
-#### find the contacts in the specified container.
-```swift
-let contacts = try await fetchContacts(withContainerIdentifier: "")
-```
-
-#### Fetch a contact with a given identifier.
-```swift
-let contact = try await fetchContact(withIdentifier: "")
-```
-
-#### Add contact to the contact store.
-```swift
-let contact = CNMutableContact()
-contact.givenName = "Satish"
-try addContact(contact)
-```
-
-#### Update contact to the contact store.
-```swift
-guard let contact = contact.mutableCopy() as? CNMutableContact else {
-    return
-}
-contact.givenName = "Satish"
-try updateContact(contact)
-```
-
-#### Delete contact to the contact store.
-```swift
-guard let contact = contact.mutableCopy() as? CNMutableContact else {
-    return
-}
-try deleteContact(contact)
-```
-
-#### Adds a group to the contact store.
-```swift
-try addGroup("My Group")
-```
-
-#### Fetches all groups in the contact store.
-```swift
-let groups = try await fetchGroups()
-```
-
-#### Updates an existing group in the contact store.
-```swift
-guard let group = group.mutableCopy() as? CNMutableGroup else {
-    return
-}
-try updateGroup(group)
-```
-
-#### Deletes a group from the contact store.
-```swift
-try deleteGroup(group)
-```
-
-#### Find the contacts that are members in the specified group.
-```swift
-let contacts = try fetchContacts(in: "My Group")
-```
-
-#### Add a new member to a group.
-```swift
-try addContact(contact, to: group)
-```
-
-#### Removes a contact as a member of a group.
-```swift
-try deleteContact(contact, from: group)
-```
-
-### closures
-
-#### Requests access to the user's contacts
-```swift
+// Closures
 requestAccess { result in
     switch result {
-    case let .success(bool):
-        print(bool)
-    case let .failure(error):
-        print(error.localizedDescription)
+    case .success(let hasAccess):
+        print("Access granted: \(hasAccess)")
+    case .failure(let error):
+        print("Error: \(error)")
     }
 }
 ```
 
-#### Fetch all contacts from device
+### Fetch Contacts
+
 ```swift
-fetchContacts { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
+// Fetch all contacts
+let contacts = try await fetchContacts()
+
+// Fetch with specific keys
+let keysToFetch: [CNKeyDescriptor] = [
+    CNContactGivenNameKey as CNKeyDescriptor,
+    CNContactEmailAddressesKey as CNKeyDescriptor
+]
+let contacts = try await fetchContacts(keysToFetch: keysToFetch)
+
+// Fetch with sorting
+let contacts = try await fetchContacts(
+    order: .givenName,
+    unifyResults: true
+)
 ```
 
-#### Fetch contacts matching a name.
+### Search Contacts
+
 ```swift
-fetchContacts(matchingName: "Satish") { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
+// Search by name
+let contacts = try await fetchContacts(matchingName: "John Doe")
+
+// Search by email
+let contacts = try await fetchContacts(matchingEmailAddress: "john@example.com")
+
+// Search by phone number
+let phoneNumber = CNPhoneNumber(stringValue: "+1234567890")
+let contacts = try await fetchContacts(matching: phoneNumber)
+
+// Search by identifiers
+let contacts = try await fetchContacts(withIdentifiers: ["id1", "id2"])
 ```
 
-#### Fetch contacts matching an email address.
-```swift
-fetchContacts(matchingEmailAddress: "satish.babariya@gmail.com") { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
+### Manage Contacts
 
-#### Fetch contacts matching a phone number.
 ```swift
-fetchContacts(matching: CNPhoneNumber(stringValue: "+919426678969")) { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Fetch contacts matching contact identifiers.
-```swift
-fetchContacts(withIdentifiers: []) { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Fetch contacts matching group identifier
-```swift
-fetchContacts(withGroupIdentifier: "") { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Find the contacts in the specified container.
-```swift
-fetchContacts(withContainerIdentifier: "") { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Fetch a contact with a given identifier.
-```swift
-fetchContact(withIdentifier: "") { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Adds the specified contact to the contact store.
-```swift
+// Create a new contact
 let contact = CNMutableContact()
-contact.givenName = "Satish"
-addContact(contact) { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
+contact.givenName = "Jane"
+contact.familyName = "Doe"
+contact.emailAddresses = [
+    CNLabeledValue(label: CNLabelHome, value: "jane@example.com")
+]
+
+// Add contact
+try await addContact(contact)
+
+// Update contact
+contact.givenName = "Jane Updated"
+try await updateContact(contact)
+
+// Delete contact
+try await deleteContact(contact)
 ```
 
-#### Updates an existing contact in the contact store.
+### Work with Groups
+
 ```swift
-guard let contact = contact.mutableCopy() as? CNMutableContact else {
-    return
-}
-contact.givenName = "Satish"
-updateContact(contact) { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
+// Fetch all groups
+let groups = try await fetchGroups()
+
+// Create a group
+try await addGroup("My Group")
+
+// Fetch contacts in a group
+let contacts = try await fetchContacts(in: "My Group")
+
+// Add contact to group
+try await addContact(contact, to: group)
+
+// Remove contact from group
+try await removeContact(contact, from: group)
+
+// Delete group
+try await deleteGroup(group)
 ```
 
-#### Deletes a contact from the contact store.
+### vCard Support
+
 ```swift
-guard let contact = contact.mutableCopy() as? CNMutableContact else {
-    return
-}
-deleteContact(contact) { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
+// Encode contacts to vCard
+let contacts = try await fetchContacts()
+let vCardData = try encode(contacts: contacts)
+
+// Decode vCard to contacts
+let decodedContacts = try decode(data: vCardData)
 ```
 
-#### Fetches all groups matching the specified predicate.
+## API Reference
+
+### Authorization
+
+- `requestAccess() async throws -> Bool` - Request access to contacts
+- `authorizationStatus() -> CNAuthorizationStatus` - Get current authorization status
+
+### Fetching Contacts
+
+- `fetchContacts(keysToFetch:order:unifyResults:) async throws -> [CNContact]` - Fetch all contacts
+- `fetchContact(withIdentifier:keysToFetch:) async throws -> CNContact` - Fetch a single contact
+- `fetchContacts(matchingName:keysToFetch:) async throws -> [CNContact]` - Search by name
+- `fetchContacts(matchingEmailAddress:keysToFetch:) async throws -> [CNContact]` - Search by email
+- `fetchContacts(matching:keysToFetch:) async throws -> [CNContact]` - Search by phone number
+- `fetchContacts(withIdentifiers:keysToFetch:) async throws -> [CNContact]` - Fetch by identifiers
+- `fetchContacts(withGroupIdentifier:keysToFetch:) async throws -> [CNContact]` - Fetch by group
+- `fetchContacts(withContainerIdentifier:keysToFetch:) async throws -> [CNContact]` - Fetch by container
+- `fetchContacts(in:keysToFetch:) async throws -> [CNContact]` - Fetch contacts in a group
+
+### Managing Contacts
+
+- `addContact(_:toContainerWithIdentifier:) async throws` - Add a contact
+- `updateContact(_:) async throws` - Update a contact
+- `deleteContact(_:) async throws` - Delete a contact
+
+### Managing Groups
+
+- `fetchGroups(matching:) async throws -> [CNGroup]` - Fetch groups
+- `addGroup(_:toContainerWithIdentifier:) async throws` - Add a group
+- `updateGroup(_:) async throws` - Update a group
+- `deleteGroup(_:) async throws` - Delete a group
+- `addContact(_:to:) async throws` - Add contact to group
+- `removeContact(_:from:) async throws` - Remove contact from group
+
+### vCard
+
+- `encode(contacts:) throws -> Data` - Encode contacts to vCard
+- `decode(data:) throws -> [CNContact]` - Decode vCard to contacts
+
+All methods also have synchronous versions for backward compatibility and closure-based versions in `SwiftyContacts+Closures.swift`.
+
+## Migration Guide
+
+### From v4.x to v5.x
+
+SwiftyContacts v5.0 introduces breaking changes:
+
+1. **Platform Requirements**: Minimum iOS 15.0, macOS 12.0, watchOS 8.0, tvOS 15.0
+2. **Swift Version**: Requires Swift 5.9+
+3. **Async/Await**: All async methods now use `@available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)`
+4. **Method Naming**: `deleteContact(_:from:)` is now `removeContact(_:from:)` (old method is deprecated)
+
+The synchronous and closure-based APIs remain available for backward compatibility.
+
+## Thread Safety
+
+SwiftyContacts uses Swift actors to ensure thread-safe access to the Contacts framework. All async operations are automatically serialized, preventing race conditions and ensuring data consistency.
+
+## Error Handling
+
+All methods throw errors that conform to Swift's `Error` protocol. Common errors include:
+- Authorization errors
+- Contact store errors
+- Validation errors
+
+Always wrap async calls in `do-catch` blocks:
+
 ```swift
-fetchGroups() { result in
-    switch result {
-    case let .success(groups):
-        print(groups)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
+do {
+    let contacts = try await fetchContacts()
+} catch {
+    print("Error fetching contacts: \(error)")
 }
 ```
 
-#### Adds a group to the contact store.
-```swift
-addGroup("My Group") { result in
-    switch result {
-    case let .success(group):
-        print(group)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
+## Contributing
 
-#### Updates an existing group in the contact store.
-```swift
-guard let group = group.mutableCopy() as? CNMutableGroup else {
-    return
-}
-updateGroup(group) { result in
-    switch result {
-    case let .success(group):
-        print(group)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-#### Deletes a group from the contact store.
-```swift
-guard let group = group.mutableCopy() as? CNMutableGroup else {
-    return
-}
-deleteGroup(group) { result in
-    switch result {
-    case let .success(group):
-        print(group)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
+## License
 
-#### Find the contacts that are members in the specified group.
-```swift
-fetchContacts(in: "My Group") { result in
-    switch result {
-    case let .success(contacts):
-        print(contacts)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Add a new member to a group.
-```swift
-addContact(contact, to: group) { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
-#### Removes a contact as a member of a group.
-```swift
-removeContact(contact, from: group) { result in
-    switch result {
-    case let .success(contact):
-        print(contact)
-    case let .failure(error):
-        print(error.localizedDescription)
-    }
-}
-```
-
+SwiftyContacts is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
 ## Author
 
 Satish Babariya, satish.babariya@gmail.com
 
-## License
+## Acknowledgments
 
-SwiftyContacts is available under the MIT license. See the LICENSE file for more info.
+Built with ❤️ using modern Swift concurrency and best practices.
