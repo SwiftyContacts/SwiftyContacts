@@ -47,7 +47,7 @@ extension CNContactStore: ContactStoreProtocol {}
 @available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 actor ContactStoreActor {
     private let store: ContactStoreProtocol
-    static let shared = ContactStoreActor()
+    nonisolated(unsafe) static var shared = ContactStoreActor()
     
     init(store: ContactStoreProtocol = CNContactStore()) {
         self.store = store
@@ -84,7 +84,7 @@ actor ContactStoreActor {
 
 // Internal instance for backward compatibility and synchronous operations
 public enum ContactStore {
-    public static let `default`: ContactStoreProtocol = CNContactStore()
+    nonisolated(unsafe) public static var `default`: ContactStoreProtocol = CNContactStore()
 }
 
 /// Requests access to the user's contacts.
@@ -133,7 +133,7 @@ public func fetchContacts(
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
 ) async throws -> [CNContact] {
     let actor = ContactStoreActor.shared
-    return try await actor.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
+    return try actor.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
 }
 
 /// Fetch contacts matching a predicate (synchronous version for backward compatibility).
@@ -359,7 +359,7 @@ public func fetchContact(
     keysToFetch: [CNKeyDescriptor] = [CNContactVCardSerialization.descriptorForRequiredKeys()]
 ) async throws -> CNContact {
     let actor = ContactStoreActor.shared
-    return try await actor.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)
+    return try actor.unifiedContact(withIdentifier: identifier, keysToFetch: keysToFetch)
 }
 
 /// Fetch a contact with a given identifier (synchronous version for backward compatibility).
@@ -388,7 +388,7 @@ public func addContact(
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.add(contact, toContainerWithIdentifier: identifier)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Adds the specified contact to the contact store (synchronous version for backward compatibility).
@@ -444,7 +444,7 @@ public func updateContact(_ contact: CNMutableContact) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.update(contact)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Updates an existing contact in the contact store (synchronous version for backward compatibility).
@@ -485,7 +485,7 @@ public func deleteContact(_ contact: CNMutableContact) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.delete(contact)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Deletes a contact from the contact store (synchronous version for backward compatibility).
@@ -525,7 +525,7 @@ public func deleteContact(_ contact: CNContact) throws {
 @available(macOS 13.0, iOS 16.0, watchOS 9.0, tvOS 16.0, visionOS 1.0, *)
 public func fetchGroups(matching predicate: NSPredicate? = nil) async throws -> [CNGroup] {
     let actor = ContactStoreActor.shared
-    return try await actor.groups(matching: predicate)
+    return try actor.groups(matching: predicate)
 }
 
 /// Fetches all groups in the contact store (synchronous version for backward compatibility).
@@ -551,7 +551,7 @@ public func addGroup(
     let group = CNMutableGroup()
     group.name = name
     request.add(group, toContainerWithIdentifier: identifier)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Adds a group to the contact store (synchronous version for backward compatibility).
@@ -578,7 +578,7 @@ public func updateGroup(_ group: CNMutableGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.update(group)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Updates an existing group in the contact store (synchronous version for backward compatibility).
@@ -619,7 +619,7 @@ public func deleteGroup(_ group: CNMutableGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.delete(group)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Deletes a group from the contact store (synchronous version for backward compatibility).
@@ -695,7 +695,7 @@ public func addContact(_ contact: CNContact, to group: CNGroup) async throws {
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.addMember(contact, to: group)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Add a new member to a group (synchronous version for backward compatibility).
@@ -719,7 +719,7 @@ public func removeContact(_ contact: CNContact, from group: CNGroup) async throw
     let actor = ContactStoreActor.shared
     let request = CNSaveRequest()
     request.removeMember(contact, from: group)
-    try await actor.execute(request)
+    try actor.execute(request)
 }
 
 /// Removes a contact as a member of a group (synchronous version for backward compatibility).

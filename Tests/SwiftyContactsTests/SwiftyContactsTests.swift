@@ -62,18 +62,21 @@ final class SwiftyContactsTests: XCTestCase, @unchecked Sendable {
     
     override func setUp() async throws {
         mockStore = MockContactStore()
-        // Note: With Swift 6 and constants, we can't inject the mock directly
-        // Tests will use the real CNContactStore for now
-        // In a real project, you'd want to make the store injectable
+        // Inject mock store
+        ContactStore.default = mockStore
+        ContactStoreActor.shared = ContactStoreActor(store: mockStore)
     }
     
     // MARK: - Authorization Tests
     
     func testRequestAccess() async throws {
-        // Test with real store since we can't mock with constants
+        mockStore.accessGranted = true
         let hasAccess = try await requestAccess()
-        // We can't predict the result, but we can test it doesn't crash
-        XCTAssertTrue(hasAccess == true || hasAccess == false)
+        XCTAssertTrue(hasAccess)
+        
+        mockStore.accessGranted = false
+        let noAccess = try await requestAccess()
+        XCTAssertFalse(noAccess)
     }
     
     func testRequestAccessWithError() async throws {
