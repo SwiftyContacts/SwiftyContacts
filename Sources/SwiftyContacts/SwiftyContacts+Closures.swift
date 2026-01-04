@@ -25,12 +25,24 @@
 ///   - On success: Returns `true` if the user allows access to contacts.
 ///   - On error: Returns error information if an error occurred.
 public func requestAccess(_ completion: @escaping (Result<Bool, Error>) -> Void) {
-    ContactStore.default.requestAccess(for: .contacts) { bool, error in
-        if let error = error {
-            completion(.failure(error))
-            return
+    if let store = ContactStore.default as? CNContactStore {
+        store.requestAccess(for: .contacts) { bool, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(bool))
         }
-        completion(.success(bool))
+    } else {
+        // For mocks or other protocol conformers, we use the async version internally
+        Task {
+            do {
+                let status = try await ContactStore.default.requestAccess(for: .contacts)
+                completion(.success(status))
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 }
 
@@ -49,16 +61,34 @@ public func fetchContacts(
     _ completion: @escaping (Result<[CNContact], Error>) -> Void
 ) {
     do {
-        var contacts: [CNContact] = []
         let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch)
         fetchRequest.unifyResults = unifyResults
         fetchRequest.sortOrder = order
+        
+        let collectedContacts = NSLockingArray<CNContact>()
         try ContactStore.default.enumerateContacts(with: fetchRequest) { contact, _ in
-            contacts.append(contact)
+            collectedContacts.append(contact)
         }
-        completion(.success(contacts))
+        completion(.success(collectedContacts.allElements))
     } catch {
         completion(.failure(error))
+    }
+}
+
+private final class NSLockingArray<Element>: @unchecked Sendable {
+    private var elements: [Element] = []
+    private let lock = NSLock()
+    
+    func append(_ element: Element) {
+        lock.lock()
+        defer { lock.unlock() }
+        elements.append(element)
+    }
+    
+    var allElements: [Element] {
+        lock.lock()
+        defer { lock.unlock() }
+        return elements
     }
 }
 

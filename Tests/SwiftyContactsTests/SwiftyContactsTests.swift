@@ -2,182 +2,234 @@
 import XCTest
 import Contacts
 
+/// A mock implementation of ContactStoreProtocol for unit testing.
+final class MockContactStore: ContactStoreProtocol, @unchecked Sendable {
+    var contacts: [CNContact] = []
+    var groups: [CNGroup] = []
+    var containers: [CNContainer] = []
+    var accessGranted: Bool = true
+    var error: Error?
+
+    func requestAccess(for entityType: CNEntityType) async throws -> Bool {
+        if let error = error { throw error }
+        return accessGranted
+    }
+
+    func enumerateContacts(with request: CNContactFetchRequest, usingBlock block: @Sendable @escaping (CNContact, UnsafeMutablePointer<ObjCBool>) -> Void) throws {
+        if let error = error { throw error }
+        var stop: ObjCBool = false
+        for contact in contacts {
+            block(contact, &stop)
+            if stop.boolValue { break }
+        }
+    }
+
+    func unifiedContacts(matching predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]) throws -> [CNContact] {
+        if let error = error { throw error }
+        // Simple mock: return all contacts for any predicate
+        return contacts
+    }
+
+    func unifiedContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor]) throws -> CNContact {
+        if let error = error { throw error }
+        guard let contact = contacts.first(where: { $0.identifier == identifier }) else {
+            throw NSError(domain: "MockContactStore", code: 404, userInfo: nil)
+        }
+        return contact
+    }
+
+    func execute(_ saveRequest: CNSaveRequest) throws {
+        if let error = error { throw error }
+        // For simple mocking, we don't reflect save requests back to the 'contacts' array
+        // unless specifically needed for a test.
+    }
+
+    func groups(matching predicate: NSPredicate?) throws -> [CNGroup] {
+        if let error = error { throw error }
+        return groups
+    }
+
+    func containers(matching predicate: NSPredicate?) throws -> [CNContainer] {
+        if let error = error { throw error }
+        return containers
+    }
+}
+
 @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
 final class SwiftyContactsTests: XCTestCase {
+    
+    var mockStore: MockContactStore!
+    
+    override func setUp() async throws {
+        mockStore = MockContactStore()
+        // Inject mock store
+        ContactStore.default = mockStore
+        ContactStoreActor.shared = ContactStoreActor(store: mockStore)
+    }
     
     // MARK: - Authorization Tests
     
     func testRequestAccess() async throws {
+        mockStore.accessGranted = true
         let hasAccess = try await requestAccess()
-        XCTAssertTrue(hasAccess, "Should have access to contacts")
+        XCTAssertTrue(hasAccess)
+        
+        mockStore.accessGranted = false
+        let noAccess = try await requestAccess()
+        XCTAssertFalse(noAccess)
     }
     
     func testAuthorizationStatus() {
+        // CNContactStore.authorizationStatus is a static method we can't easily mock
+        // but we can still test our wrapper logic if it had any.
         let status = authorizationStatus()
         XCTAssertTrue(
-            status == .authorized || status == .notDetermined || status == .denied || status == .restricted,
-            "Authorization status should be valid"
+            status == .authorized || status == .notDetermined || status == .denied || status == .restricted
         )
     }
     
     func testRequestAccessClosures() {
         let expectation = expectation(description: "testRequestAccessClosures")
+        mockStore.accessGranted = true
         
         requestAccess { result in
             switch result {
             case .success(let hasAccess):
-                XCTAssertTrue(hasAccess, "Should have access to contacts")
+                XCTAssertTrue(hasAccess)
             case .failure(let error):
-                XCTFail("Request access failed: \(error.localizedDescription)")
+                XCTFail("Failed: \(error)")
             }
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5.0)
+        waitForExpectations(timeout: 1.0)
     }
     
     // MARK: - Fetch Contacts Tests
     
     func testFetchContacts() async throws {
+        let contact = CNMutableContact()
+        contact.givenName = "John"
+        mockStore.contacts = [contact]
+        
         let contacts = try await fetchContacts()
-        XCTAssertGreaterThanOrEqual(contacts.count, 0, "Should fetch contacts")
+        XCTAssertEqual(contacts.count, 1)
+        XCTAssertEqual(contacts.first?.givenName, "John")
     }
     
     func testFetchContactsClosures() {
         let expectation = expectation(description: "testFetchContactsClosures")
+        let contact = CNMutableContact()
+        contact.givenName = "Jane"
+        mockStore.contacts = [contact]
         
         fetchContacts { result in
             switch result {
             case .success(let contacts):
-                XCTAssertGreaterThanOrEqual(contacts.count, 0, "Should fetch contacts")
+                XCTAssertEqual(contacts.count, 1)
+                XCTAssertEqual(contacts.first?.givenName, "Jane")
             case .failure(let error):
-                XCTFail("Fetch contacts failed: \(error.localizedDescription)")
+                XCTFail("Failed: \(error)")
             }
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 5.0)
-    }
-    
-    func testFetchContactsWithKeys() async throws {
-        let keysToFetch: [CNKeyDescriptor] = [
-            CNContactGivenNameKey as CNKeyDescriptor,
-            CNContactFamilyNameKey as CNKeyDescriptor,
-            CNContactEmailAddressesKey as CNKeyDescriptor
-        ]
-        let contacts = try await fetchContacts(keysToFetch: keysToFetch)
-        XCTAssertGreaterThanOrEqual(contacts.count, 0, "Should fetch contacts with specified keys")
+        waitForExpectations(timeout: 1.0)
     }
     
     func testFetchContactWithIdentifier() async throws {
-        // First fetch all contacts to get an identifier
-        let allContacts = try await fetchContacts()
-        guard let firstContact = allContacts.first else {
-            return // Skip if no contacts
-        }
+        let contact = CNMutableContact()
+        // We can't set identifier directly on CNContact, so we rely on what the mock returns
+        mockStore.contacts = [contact]
         
-        let contact = try await fetchContact(withIdentifier: firstContact.identifier)
-        XCTAssertEqual(contact.identifier, firstContact.identifier, "Should fetch the correct contact")
+        let fetched = try await fetchContact(withIdentifier: contact.identifier)
+        XCTAssertEqual(fetched.identifier, contact.identifier)
     }
     
     // MARK: - Contact Management Tests
     
-    func testAddAndDeleteContact() async throws {
-        // Create a test contact
+    func testAddContact() async throws {
         let contact = CNMutableContact()
-        contact.givenName = "Test"
-        contact.familyName = "User"
-        contact.emailAddresses = [CNLabeledValue(label: CNLabelHome, value: "test@example.com")]
-        
-        // Add contact
+        contact.givenName = "New"
+        // Verify no crash/error when executing save request
         try await addContact(contact)
-        
-        // Verify it was added
-        let fetchedContacts = try await fetchContacts(matchingName: "Test User")
-        XCTAssertGreaterThan(fetchedContacts.count, 0, "Contact should be added")
-        
-        // Clean up - delete the contact
-        if let addedContact = fetchedContacts.first,
-           let mutableContact = addedContact.mutableCopy() as? CNMutableContact {
-            try await deleteContact(mutableContact)
-        }
     }
     
     func testUpdateContact() async throws {
-        // This test requires a contact to exist, so we'll skip if none are available
-        let allContacts = try await fetchContacts()
-        guard let existingContact = allContacts.first,
-              let mutableContact = existingContact.mutableCopy() as? CNMutableContact else {
-            return // Skip if no contacts
-        }
-        
-        let originalName = mutableContact.givenName
-        mutableContact.givenName = "Updated"
-        
-        // Update contact
-        try await updateContact(mutableContact)
-        
-        // Verify update
-        let updatedContact = try await fetchContact(withIdentifier: mutableContact.identifier)
-        XCTAssertEqual(updatedContact.givenName, "Updated", "Contact should be updated")
-        
-        // Restore original name
-        mutableContact.givenName = originalName
-        try await updateContact(mutableContact)
+        let contact = CNMutableContact()
+        try await updateContact(contact)
+    }
+    
+    func testDeleteContact() async throws {
+        let contact = CNMutableContact()
+        try await deleteContact(contact)
     }
     
     // MARK: - Group Tests
     
     func testFetchGroups() async throws {
+        let group = CNMutableGroup()
+        group.name = "Family"
+        mockStore.groups = [group]
+        
         let groups = try await fetchGroups()
-        XCTAssertGreaterThanOrEqual(groups.count, 0, "Should fetch groups")
+        XCTAssertEqual(groups.count, 1)
+        XCTAssertEqual(groups.first?.name, "Family")
     }
     
     func testAddAndDeleteGroup() async throws {
-        let groupName = "Test Group \(UUID().uuidString)"
-        
-        // Add group
-        try await addGroup(groupName)
-        
-        // Verify it was added
-        let groups = try await fetchGroups()
-        let addedGroup = groups.first { $0.name == groupName }
-        XCTAssertNotNil(addedGroup, "Group should be added")
-        
-        // Clean up - delete the group
-        if let group = addedGroup,
-           let mutableGroup = group.mutableCopy() as? CNMutableGroup {
-            try await deleteGroup(mutableGroup)
-        }
+        try await addGroup("Testing")
+        let group = CNMutableGroup()
+        try await deleteGroup(group)
     }
     
     // MARK: - VCard Tests
     
     func testEncodeDecodeVCard() throws {
         let contact = CNMutableContact()
-        contact.givenName = "Test"
-        contact.familyName = "VCard"
-        contact.emailAddresses = [CNLabeledValue(label: CNLabelHome, value: "test@example.com")]
+        contact.givenName = "VCard"
         
-        // Encode
-        let vCardData = try encode(contacts: [contact])
-        XCTAssertGreaterThan(vCardData.count, 0, "VCard data should not be empty")
+        let data = try encode(contacts: [contact])
+        XCTAssertFalse(data.isEmpty)
         
-        // Decode
-        let decodedContacts = try decode(data: vCardData)
-        XCTAssertEqual(decodedContacts.count, 1, "Should decode one contact")
-        XCTAssertEqual(decodedContacts.first?.givenName, "Test", "Decoded contact should match")
+        let decoded = try decode(data: data)
+        XCTAssertEqual(decoded.count, 1)
+        XCTAssertEqual(decoded.first?.givenName, "VCard")
     }
     
-    // MARK: - Search Tests
+    // MARK: - Search Variants
     
     func testFetchContactsMatchingName() async throws {
-        let contacts = try await fetchContacts(matchingName: "Test")
-        XCTAssertGreaterThanOrEqual(contacts.count, 0, "Should fetch contacts matching name")
+        let contact = CNMutableContact()
+        contact.givenName = "Satish"
+        mockStore.contacts = [contact]
+        
+        let contacts = try await fetchContacts(matchingName: "Satish")
+        XCTAssertEqual(contacts.count, 1)
     }
     
     func testFetchContactsMatchingEmail() async throws {
+        let contact = CNMutableContact()
+        contact.emailAddresses = [CNLabeledValue(label: nil, value: "test@example.com")]
+        mockStore.contacts = [contact]
+        
         let contacts = try await fetchContacts(matchingEmailAddress: "test@example.com")
-        XCTAssertGreaterThanOrEqual(contacts.count, 0, "Should fetch contacts matching email")
+        XCTAssertEqual(contacts.count, 1)
+    }
+
+    func testFetchContactsInGroup() async throws {
+        let contact = CNMutableContact()
+        mockStore.contacts = [contact]
+        
+        let contacts = try await fetchContacts(in: "GroupID")
+        XCTAssertEqual(contacts.count, 1)
+    }
+    
+    func testGroupMembership() async throws {
+        let contact = CNContact()
+        let group = CNGroup()
+        
+        try await addContact(contact, to: group)
+        try await removeContact(contact, from: group)
     }
 }

@@ -21,13 +21,28 @@
 @_exported import Contacts
 import Foundation
 
+/// Protocol defining the interface for a contact store, allowing for mocking in tests.
+public protocol ContactStoreProtocol: Sendable {
+    func requestAccess(for entityType: CNEntityType) async throws -> Bool
+    func enumerateContacts(with request: CNContactFetchRequest, usingBlock block: @Sendable @escaping (CNContact, UnsafeMutablePointer<ObjCBool>) -> Void) throws
+    func unifiedContacts(matching predicate: NSPredicate, keysToFetch: [CNKeyDescriptor]) throws -> [CNContact]
+    func unifiedContact(withIdentifier identifier: String, keysToFetch: [CNKeyDescriptor]) throws -> CNContact
+    func execute(_ saveRequest: CNSaveRequest) throws
+    func groups(matching predicate: NSPredicate?) throws -> [CNGroup]
+    func containers(matching predicate: NSPredicate?) throws -> [CNContainer]
+}
+
+extension CNContactStore: ContactStoreProtocol {}
+
 /// A thread-safe contact store wrapper using an actor for modern Swift concurrency.
 @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
 actor ContactStoreActor {
-    private let store = CNContactStore()
-    static let shared = ContactStoreActor()
+    private let store: ContactStoreProtocol
+    static var shared = ContactStoreActor()
     
-    private init() {}
+    init(store: ContactStoreProtocol = CNContactStore()) {
+        self.store = store
+    }
     
     func requestAccess(for entityType: CNEntityType) async throws -> Bool {
         return try await store.requestAccess(for: entityType)
@@ -62,11 +77,9 @@ actor ContactStoreActor {
     }
 }
 
-// Internal static instance for backward compatibility and synchronous operations
-final class ContactStore: @unchecked Sendable {
-    static let `default` = CNContactStore()
-    
-    private init() {}
+// Internal instance for backward compatibility and synchronous operations
+public enum ContactStore {
+    public static var `default`: ContactStoreProtocol = CNContactStore()
 }
 
 /// Requests access to the user's contacts.
